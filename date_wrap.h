@@ -1,7 +1,6 @@
 #ifndef DATE_WRAP_H
 #define DATE_WRAP_H
 
-#include <>
 #include "date.h"
 
    
@@ -27,3 +26,5 @@ public:
 }
 
 dateWrap operator+(int days);
+
+#endif //DATE_WRAP_H_
