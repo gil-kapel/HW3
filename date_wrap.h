@@ -4,7 +4,7 @@
 #include <>
 #include "date.h"
 
-test   
+   
 class dateWrap{
     int day;
     int week;
