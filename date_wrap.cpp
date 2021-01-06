@@ -127,5 +127,5 @@ dateWrap operator+(const dateWrap& date, int days)
         new_date++;
 		days = days--;
 	}
-    return new_date;
+    return date;
 }
