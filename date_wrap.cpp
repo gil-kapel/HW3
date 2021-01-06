@@ -9,106 +9,123 @@ using std::cin;
 using std::endl;
 
 
-dateWrap::dateWrap(Date date)
+dateWrap::dateWrap(int day, int month, int year)
 {
-    dateGet(date, &day, &week, &year);
+    this->date = dateCreate(day, month, year);
 }
 
-dateWrap::getDay()
+int dateWrap::getDay(const dateWrap& date)
 {
+    int day, month, year;
+    if(!dateGet(date.date, &day, &month, &year))
+    {
+        return 0;
+    }
     return day;
 }
 
-dateWrap::getMonth()
+int dateWrap::getMonth()
 {
-    return this->month;
+    int day, month, year;
+    if(!dateGet(date, &day, &month, &year))
+    {
+        return 0;
+    }
+    return month;
 }
 
-dateWrap::getYear()
+int dateWrap::getYear()
 {
-    return this->year;
+    int day, month, year;
+    if(!dateGet(date, &day, &month, &year))
+    {
+        return 0;
+    }
+    return year;
 }
 
-dateWrap::printDate()
+void dateWrap::printDate()
 {
-    cout << this->day << "/" << this->week << "/" << this year << endl;
+    int day, month, year;
+    if(dateGet(date, &day, &month, &year))
+    {
+        cout << day << "/" << month << "/" << year << endl;
+    }
 }
 
-bool dateWrap::operator==(const dateWrap& date)
+bool dateWrap::operator==(const dateWrap& date)const
 {
-    if(dateCompare(this, date) == 0)
+    if(dateCompare(this->date, date.date) == 0)
     {
         return true;
     }
     else return false;
 }
 
-bool dateWrap::operator>=(const dateWrap& date)
+bool dateWrap::operator>=(const dateWrap& date)const
 {
-    if(dateCompare(this, date) >= 0)
+    if(dateCompare(this->date, date.date) >= 0)
     {
         return true;
     }
     else return false;
 }
 
-bool dateWrap::operator<=(const dateWrap& date)
+bool dateWrap::operator<=(const dateWrap& date)const
 {
-    if(dateCompare(this, date) <= 0)
+    if(dateCompare(this->date, date.date) <= 0)
     {
         return true;
     }
     else return false;
 }
 
-bool dateWrap::operator!=(const dateWrap& date)
+bool dateWrap::operator!=(const dateWrap& date)const
 {
-    if(this == date)
-    {
-        return false;
-    }
-    else return true;
+    return !(this->operator==(date));
 }
 
-bool dateWrap::operator>(const dateWrap& date)
+bool dateWrap::operator>(const dateWrap& date)const
 {
-    if(this <= date)
-    {
-        return false;
-    }
-    else return true;
+    return !(this->operator<=(date));
 }
 
-bool dateWrap::operator<(const dateWrap& date)
+bool dateWrap::operator<(const dateWrap& date)const
 {
-    if(this >= date)
-    {
-        return false;
-    }
-    else return true;
+    return !(this->operator>=(date));
 }
 
-dateWrap::dateWrap& operator++()
+dateWrap&  dateWrap::operator++() //* ++date */
 {
-    dateTick(this);
+    dateTick(this->date);
 }
 
-dateWrap::dateWrap& operator+=(int days)
+dateWrap dateWrap::operator++(int) //* date++ */ 
+{
+    int day, month, year;
+    dateGet(date, &day, &month, &year);
+    dateWrap old_date(day, month, year);
+    dateTick(this->date);
+    return old_date;
+}
+
+dateWrap& dateWrap::operator+=(int days)
 {
     while (days > 0)
 	{
-		dateTick(this);
+		dateTick(this->date);
 		days = days--;
 	}
 	return *this;
 }
 
-dateWrap operator+(int days)
+dateWrap operator+(const dateWrap& date, int days)
 {
-    dateWrap date(this->day, this->week, this->year);
+    dateWrap new_date(dateWrap::getDay(date), dateWrap::getMonth(date), dateWrap::getYear(date));
     while (days > 0)
 	{
-		dateTick(&date);
+        new_date++;
 		days = days--;
 	}
+    return new_date;
 }

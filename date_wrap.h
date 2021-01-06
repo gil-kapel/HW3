@@ -5,26 +5,25 @@
 
    
 class dateWrap{
-    int day;
-    int week;
-    int year;
+    Date date; 
 public:
-    dateWrap(Date date);
+    dateWrap(int day, int month, int year);
 //*    ~dateWrap();
-    int getDay();
+    int getDay(const dateWrap& date);
     int getMonth();
     int getYear();
     void printDate();
     bool operator==(const dateWrap& date)const;
-    bool operator>=(const dateWrap& date);
-    bool operator<=(const dateWrap& date);
-    bool operator!=(const dateWrap& date);
-    bool operator>(const dateWrap& date);
-    bool operator<(const dateWrap& date);
+    bool operator>=(const dateWrap& date)const;
+    bool operator<=(const dateWrap& date)const;
+    bool operator!=(const dateWrap& date)const;
+    bool operator>(const dateWrap& date)const;
+    bool operator<(const dateWrap& date)const;
     dateWrap& operator++();
+    dateWrap operator++(int);
     dateWrap& operator+=(int days);
-}
+};
 
-dateWrap operator+(int days);
+dateWrap operator+(const dateWrap& date, int days);
 
 #endif //DATE_WRAP_H_
