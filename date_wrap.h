@@ -11,6 +11,7 @@ class DateWrap{
 public:
     DateWrap(int day = 1, int month = 1, int year = 2021);
     ~DateWrap();
+    DateWrap& operator=(const DateWrap& date);
     int getDay(const DateWrap& date);
     int getMonth(const DateWrap& date);
     int getYear(const DateWrap& date);

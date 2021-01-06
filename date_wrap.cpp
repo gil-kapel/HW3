@@ -13,6 +13,8 @@ using std::cerr;
 using std::cin;
 using std::endl;
 
+
+
 static bool isDateLegal(int day, int month)
 {
     bool day_val = (day >= MIN_DAY) && (day <= MAX_DAY);
@@ -32,6 +34,11 @@ DateWrap::DateWrap(int day, int month, int year)
 DateWrap::~DateWrap()
 {
     delete[] date;
+}
+
+DateWrap& DateWrap::operator=(const DateWrap& date)
+{
+    this->date = dateCopy(date.date);
 }
 
 int DateWrap::getDay(const DateWrap& date)
