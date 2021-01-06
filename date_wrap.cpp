@@ -14,10 +14,10 @@ dateWrap::dateWrap(int day, int month, int year)
     this->date = dateCreate(day, month, year);
 }
 
-int dateWrap::getDay(const dateWrap& date)
+int dateWrap::getDay()
 {
     int day, month, year;
-    if(!dateGet(date.date, &day, &month, &year))
+    if(!dateGet(date, &day, &month, &year))
     {
         return 0;
     }
@@ -98,6 +98,7 @@ bool dateWrap::operator<(const dateWrap& date)const
 dateWrap&  dateWrap::operator++() //* ++date */
 {
     dateTick(this->date);
+    return *this;
 }
 
 dateWrap dateWrap::operator++(int) //* date++ */ 
@@ -119,13 +120,13 @@ dateWrap& dateWrap::operator+=(int days)
 	return *this;
 }
 
-dateWrap operator+(const dateWrap& date, int days)
+dateWrap dateWrap::operator+(int days)
 {
-    dateWrap new_date(dateWrap::getDay(date), dateWrap::getMonth(date), dateWrap::getYear(date));
+    dateWrap new_date(this->getDay(), this->getMonth(), this->getYear());
     while (days > 0)
 	{
-        new_date++;
-		days = days--;
+        ++new_date;
+		--days;
 	}
     return new_date;
 }
