@@ -1,25 +1,40 @@
 #include "date_wrap.h"
-#include "date.h"
+#include "exceptions.h"
 #include <iostream>
 #include <stdbool.h>
+
+#define MIN_DAY 1
+#define MAX_DAY 30
+#define MIN_MONTH 1
+#define MAX_MONTH 12
 
 using std::cout;
 using std::cerr;
 using std::cin;
 using std::endl;
 
-
-dateWrap::dateWrap(int day, int month, int year)
+static bool isDateLegal(int day, int month)
 {
-    this->date = dateCreate(day, month, year);
+    bool day_val = (day >= MIN_DAY) && (day <= MAX_DAY);
+	bool month_val = (month >= MIN_MONTH) && (month <= MAX_MONTH);
+    return ((day_val) && (month_val));
 }
 
-dateWrap::~dateWrap()
+DateWrap::DateWrap(int day, int month, int year)
+{
+    if(isDateLegal(day,month))
+    {
+        this->date = dateCreate(day, month, year);
+    }
+    else mtm::InvalidDate();
+}
+
+DateWrap::~DateWrap()
 {
     delete[] date;
 }
 
-int dateWrap::getDay(const dateWrap& date)
+int DateWrap::getDay(const DateWrap& date)
 {
     int day, month, year;
     if(!dateGet(date.date, &day, &month, &year))
@@ -29,7 +44,7 @@ int dateWrap::getDay(const dateWrap& date)
     return day;
 }
 
-int dateWrap::getMonth(const dateWrap& date)
+int DateWrap::getMonth(const DateWrap& date)
 {
     int day, month, year;
     if(!dateGet(date.date, &day, &month, &year))
@@ -39,7 +54,7 @@ int dateWrap::getMonth(const dateWrap& date)
     return month;
 }
 
-int dateWrap::getYear(const dateWrap& date)
+int DateWrap::getYear(const DateWrap& date)
 {
     int day, month, year;
     if(!dateGet(date.date, &day, &month, &year))
@@ -49,7 +64,7 @@ int dateWrap::getYear(const dateWrap& date)
     return year;
 }
 
-void dateWrap::printDate()
+void DateWrap::printDate()
 {
     int day, month, year;
     if(dateGet(date, &day, &month, &year))
@@ -58,7 +73,7 @@ void dateWrap::printDate()
     }
 }
 
-bool dateWrap::operator==(const dateWrap& date)const
+bool DateWrap::operator==(const DateWrap& date)const
 {
     if(dateCompare(this->date, date.date) == 0)
     {
@@ -67,7 +82,7 @@ bool dateWrap::operator==(const dateWrap& date)const
     else return false;
 }
 
-bool dateWrap::operator>=(const dateWrap& date)const
+bool DateWrap::operator>=(const DateWrap& date)const
 {
     if(dateCompare(this->date, date.date) >= 0)
     {
@@ -76,7 +91,7 @@ bool dateWrap::operator>=(const dateWrap& date)const
     else return false;
 }
 
-bool dateWrap::operator<=(const dateWrap& date)const
+bool DateWrap::operator<=(const DateWrap& date)const
 {
     if(dateCompare(this->date, date.date) <= 0)
     {
@@ -85,37 +100,37 @@ bool dateWrap::operator<=(const dateWrap& date)const
     else return false;
 }
 
-bool dateWrap::operator!=(const dateWrap& date)const
+bool DateWrap::operator!=(const DateWrap& date)const
 {
     return !(this->operator==(date));
 }
 
-bool dateWrap::operator>(const dateWrap& date)const
+bool DateWrap::operator>(const DateWrap& date)const
 {
     return !(this->operator<=(date));
 }
 
-bool dateWrap::operator<(const dateWrap& date)const
+bool DateWrap::operator<(const DateWrap& date)const
 {
     return !(this->operator>=(date));
 }
 
-dateWrap&  dateWrap::operator++() //* ++date */
+DateWrap&  DateWrap::operator++() //* ++date */
 {
     dateTick(this->date);
     return *this;
 }
 
-dateWrap dateWrap::operator++(int) //* date++ */ 
+DateWrap DateWrap::operator++(int) //* date++ */ 
 {
     int day, month, year;
     dateGet(date, &day, &month, &year);
-    dateWrap old_date(day, month, year);
+    DateWrap old_date(day, month, year);
     dateTick(this->date);
     return old_date;
 }
 
-dateWrap& dateWrap::operator+=(int days)
+DateWrap& DateWrap::operator+=(int days)
 {
     while (days > 0)
 	{
@@ -125,9 +140,16 @@ dateWrap& dateWrap::operator+=(int days)
 	return *this;
 }
 
-dateWrap operator+(const dateWrap& date, int days)
+DateWrap operator+(const DateWrap& date, int days)
 {
     int day, month, year;
     dateGet(date.date, &day, &month, &year);
-    return dateWrap(day, month, year) += days;
+    return DateWrap(day, month, year) += days;
+}
+
+DateWrap operator+(int days, const DateWrap& date)
+{
+    int day, month, year;
+    dateGet(date.date, &day, &month, &year);
+    return DateWrap(day, month, year) += days;
 }

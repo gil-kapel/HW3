@@ -1,30 +1,35 @@
-#ifndef DATE_WRAP_H
-#define DATE_WRAP_H
+#ifndef DATE_WRAP_H_
+#define DATE_WRAP_H_
 
-#include "date.h"
+extern "C"
+{
+    #include "date.h"
+}
 
-   
-class dateWrap{
+class DateWrap{
     Date date; 
 public:
-    dateWrap(int day = 1, int month = 1, int year = 2021);
-    ~dateWrap();
-    int getDay(const dateWrap& date);
-    int getMonth(const dateWrap& date);
-    int getYear(const dateWrap& date);
+    DateWrap(int day = 1, int month = 1, int year = 2021);
+    ~DateWrap();
+    int getDay(const DateWrap& date);
+    int getMonth(const DateWrap& date);
+    int getYear(const DateWrap& date);
     void printDate();
-    bool operator==(const dateWrap& date)const;
-    bool operator>=(const dateWrap& date)const;
-    bool operator<=(const dateWrap& date)const;
-    bool operator!=(const dateWrap& date)const;
-    bool operator>(const dateWrap& date)const;
-    bool operator<(const dateWrap& date)const;
-    dateWrap& operator++();
-    dateWrap operator++(int);
-    dateWrap& operator+=(int days);
-    friend dateWrap operator+(const dateWrap& date, int days);
+    bool operator==(const DateWrap& date)const;
+    bool operator>=(const DateWrap& date)const;
+    bool operator<=(const DateWrap& date)const;
+    bool operator!=(const DateWrap& date)const;
+    bool operator>(const DateWrap& date)const;
+    bool operator<(const DateWrap& date)const;
+    DateWrap& operator++();
+    DateWrap operator++(int);
+    DateWrap& operator+=(int days);
+    friend DateWrap operator+(const DateWrap& date, int days);
+    friend DateWrap operator+(int days, const DateWrap& date);
 };
 
-dateWrap operator+(const dateWrap& date, int days);
+DateWrap operator+(const DateWrap& date, int days);
+
+DateWrap operator+(int days, const DateWrap& date);
 
 #endif //DATE_WRAP_H_
