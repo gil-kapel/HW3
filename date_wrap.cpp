@@ -128,5 +128,5 @@ dateWrap dateWrap::operator+(int days)
         ++new_date;
 		--days;
 	}
-    return date;
+    return *this;
 }
