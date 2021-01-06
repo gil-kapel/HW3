@@ -14,30 +14,35 @@ dateWrap::dateWrap(int day, int month, int year)
     this->date = dateCreate(day, month, year);
 }
 
-int dateWrap::getDay()
+dateWrap::~dateWrap()
+{
+    delete[] date;
+}
+
+int dateWrap::getDay(const dateWrap& date)
 {
     int day, month, year;
-    if(!dateGet(date, &day, &month, &year))
+    if(!dateGet(date.date, &day, &month, &year))
     {
         return 0;
     }
     return day;
 }
 
-int dateWrap::getMonth()
+int dateWrap::getMonth(const dateWrap& date)
 {
     int day, month, year;
-    if(!dateGet(date, &day, &month, &year))
+    if(!dateGet(date.date, &day, &month, &year))
     {
         return 0;
     }
     return month;
 }
 
-int dateWrap::getYear()
+int dateWrap::getYear(const dateWrap& date)
 {
     int day, month, year;
-    if(!dateGet(date, &day, &month, &year))
+    if(!dateGet(date.date, &day, &month, &year))
     {
         return 0;
     }
@@ -114,19 +119,15 @@ dateWrap& dateWrap::operator+=(int days)
 {
     while (days > 0)
 	{
-		dateTick(this->date);
-		days = days--;
+		++(*this);
+		--days;
 	}
 	return *this;
 }
 
-dateWrap dateWrap::operator+(int days)
+dateWrap operator+(const dateWrap& date, int days)
 {
-    dateWrap new_date(this->getDay(), this->getMonth(), this->getYear());
-    while (days > 0)
-	{
-        ++new_date;
-		--days;
-	}
-    return *this;
+    int day, month, year;
+    dateGet(date.date, &day, &month, &year);
+    return dateWrap(day, month, year) += days;
 }
