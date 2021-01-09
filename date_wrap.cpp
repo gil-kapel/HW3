@@ -3,31 +3,29 @@
 #include <iostream>
 #include <stdbool.h>
 
-#define MIN_DAY 1
-#define MAX_DAY 30
-#define MIN_MONTH 1
-#define MAX_MONTH 12
-
+using mtm::DateWrap;
 using std::cout;
 using std::cerr;
 using std::cin;
 using std::endl;
 
-
-static bool isDateLegal(int day, int month)
+void DateWrap::isDateValid(int day, int month)const
 {
-    bool day_val = (day >= MIN_DAY) && (day <= MAX_DAY);
-	bool month_val = (month >= MIN_MONTH) && (month <= MAX_MONTH);
-    return ((day_val) && (month_val));
+    if((month >= MIN_MONTH) && (month <= MAX_MONTH) && (day >= MIN_DAY) && (day <= MAX_DAY))
+    {
+        throw mtm::InvalidDate();
+    }
+    return;
 }
 
 DateWrap::DateWrap(int day, int month, int year)
 {
-    if(isDateLegal(day,month))
-    {
+    try{
+        isDateValid(day,month);
         this->date = dateCreate(day, month, year);
+    } catch (mtm::InvalidDate){
+        cerr << "InvalidDate";
     }
-    else mtm::InvalidDate();
 }
 
 DateWrap::~DateWrap()
@@ -144,6 +142,10 @@ DateWrap DateWrap::operator++(int) //* date++ */
 
 DateWrap& DateWrap::operator+=(int days)
 {
+    if(days < 0)
+    {
+        throw mtm::NegativeDays();
+    }
     while (days > 0)
 	{
 		++(*this);
@@ -152,17 +154,22 @@ DateWrap& DateWrap::operator+=(int days)
 	return *this;
 }
 
-DateWrap operator+(const DateWrap& date, int days)
+DateWrap mtm::operator+(const DateWrap& date, int days)
 {
-    int day, month, year;
-    dateGet(date.date, &day, &month, &year);
-    return DateWrap(day, month, year) += days;
+    if(days < 0)
+    {
+        throw mtm::NegativeDays();
+    }
+    DateWrap new_date = date;
+    return new_date += days;
 }
 
-DateWrap operator+(int days, const DateWrap& date)
+DateWrap mtm::operator+(int days, const DateWrap& date)
 {
-    int day, month, year;
-    dateGet(date.date, &day, &month, &year);
-    return DateWrap(day, month, year) += days;
+    if(days < 0)
+    {
+        throw mtm::NegativeDays();
+    }
+    DateWrap new_date = date;
+    return new_date += days;
 }
-

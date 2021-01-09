@@ -1,36 +1,44 @@
 #ifndef DATE_WRAP_H_
 #define DATE_WRAP_H_
 
+#define MIN_DAY 1
+#define MAX_DAY 30
+#define MIN_MONTH 1
+#define MAX_MONTH 12
+
 extern "C"
 {
     #include "date.h"
 }
 
-class DateWrap{
-    Date date; 
-public:
-    DateWrap(int day = 1, int month = 1, int year = 2021);
-    ~DateWrap();
-    DateWrap& operator=(const DateWrap& date);
-    int getDay(const DateWrap& date);
-    int getMonth(const DateWrap& date);
-    int getYear(const DateWrap& date);
-    void printDate();
-    bool operator==(const DateWrap& date)const;
-    bool operator>=(const DateWrap& date)const;
-    bool operator<=(const DateWrap& date)const;
-    bool operator!=(const DateWrap& date)const;
-    bool operator>(const DateWrap& date)const;
-    bool operator<(const DateWrap& date)const;
-    DateWrap& operator++();
-    DateWrap operator++(int);
-    DateWrap& operator+=(int days);
-    friend DateWrap operator+(const DateWrap& date, int days);
-    friend DateWrap operator+(int days, const DateWrap& date);
-};
+namespace mtm{
+    
+    class DateWrap{
+        Date date; 
+    public:
+        void isDateValid(int day, int month)const;
+        DateWrap(int day, int month, int year);
+        ~DateWrap();
+        DateWrap& operator=(const DateWrap& date);
+        int getDay(const DateWrap& date);
+        int getMonth(const DateWrap& date);
+        int getYear(const DateWrap& date);
+        void printDate();
+        bool operator==(const DateWrap& date)const;
+        bool operator>=(const DateWrap& date)const;
+        bool operator<=(const DateWrap& date)const;
+        bool operator!=(const DateWrap& date)const;
+        bool operator>(const DateWrap& date)const;
+        bool operator<(const DateWrap& date)const;
+        DateWrap& operator++(); //* not needed duo to the instratcions */
+        DateWrap operator++(int);
+        DateWrap& operator+=(int days);
+    }; //* End of DateWrap class */
 
-DateWrap operator+(const DateWrap& date, int days);
+    DateWrap operator+(const DateWrap& date, int days);
 
-DateWrap operator+(int days, const DateWrap& date);
+    DateWrap operator+(int days, const DateWrap& date);
+
+} //End of mtm namespace*/
 
 #endif //DATE_WRAP_H_
