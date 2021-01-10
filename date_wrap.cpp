@@ -8,6 +8,8 @@ using std::cout;
 using std::cerr;
 using std::cin;
 using std::endl;
+using std::ostream;
+
 
 void DateWrap::isDateValid(int day, int month)const
 {
@@ -23,14 +25,14 @@ DateWrap::DateWrap(int day, int month, int year)
     try{
         isDateValid(day,month);
         this->date = dateCreate(day, month, year);
-    } catch (mtm::InvalidDate){
+    } catch (mtm::InvalidDate& e){
         cerr << "InvalidDate";
     }
 }
 
 DateWrap::~DateWrap()
 {
-    delete[] date;
+    dateDestroy(date);
 }
 
 DateWrap& DateWrap::operator=(const DateWrap& date)
@@ -39,7 +41,7 @@ DateWrap& DateWrap::operator=(const DateWrap& date)
     {
         return *this;
     }
-    delete[] this->date;
+    dateDestroy(this->date);
     this->date = dateCopy(date.date);
     return *this;
 }
@@ -72,15 +74,6 @@ int DateWrap::getYear(const DateWrap& date)
         return 0;
     }
     return year;
-}
-
-void DateWrap::printDate()
-{
-    int day, month, year;
-    if(dateGet(date, &day, &month, &year))
-    {
-        cout << day << "/" << month << "/" << year << endl;
-    }
 }
 
 bool DateWrap::operator==(const DateWrap& date)const
@@ -125,12 +118,6 @@ bool DateWrap::operator<(const DateWrap& date)const
     return !(this->operator>=(date));
 }
 
-DateWrap&  DateWrap::operator++() //* ++date */
-{
-    dateTick(this->date);
-    return *this;
-}
-
 DateWrap DateWrap::operator++(int) //* date++ */ 
 {
     int day, month, year;
@@ -148,8 +135,8 @@ DateWrap& DateWrap::operator+=(int days)
     }
     while (days > 0)
 	{
-		++(*this);
-		--days;
+		(*this)++;
+		days--;
 	}
 	return *this;
 }

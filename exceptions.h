@@ -3,6 +3,10 @@
 
 #include <iostream>
 
+using std::cout;
+using std::cerr;
+using std::cin;
+using std::endl;
 using std::exception;
 
 namespace mtm{
@@ -19,6 +23,26 @@ namespace mtm{
         NegativeDays() = default;
     };
 
+    class NotRegistered : public Exception{
+    public:
+        NotRegistered() = default;
+    };
+    
+    class InvalidMember : public Exception{
+    public:
+        InvalidMember() = default;
+    };
+    
+    class FullList : public Exception{
+    public:
+        FullList() = default;
+    };
+    
+    class AlreadyRegistered : public Exception{
+    public:
+        AlreadyRegistered() = default;
+    };
+    
 } //* End of mtm namespace */
 
 #endif //EXCEPTIONS_H_

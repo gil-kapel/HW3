@@ -1,6 +1,9 @@
 #ifndef DATE_WRAP_H_
 #define DATE_WRAP_H_
 
+#include <iostream>
+
+
 #define MIN_DAY 1
 #define MAX_DAY 30
 #define MIN_MONTH 1
@@ -10,6 +13,12 @@ extern "C"
 {
     #include "date.h"
 }
+using std::cout;
+using std::cerr;
+using std::cin;
+using std::endl;
+using std::ostream;
+
 
 namespace mtm{
     
@@ -23,22 +32,29 @@ namespace mtm{
         int getDay(const DateWrap& date);
         int getMonth(const DateWrap& date);
         int getYear(const DateWrap& date);
-        void printDate();
         bool operator==(const DateWrap& date)const;
         bool operator>=(const DateWrap& date)const;
         bool operator<=(const DateWrap& date)const;
         bool operator!=(const DateWrap& date)const;
         bool operator>(const DateWrap& date)const;
         bool operator<(const DateWrap& date)const;
-        DateWrap& operator++(); //* not needed duo to the instratcions */
         DateWrap operator++(int);
         DateWrap& operator+=(int days);
+        friend ostream& operator<<(ostream& os, const DateWrap& date);
     }; //* End of DateWrap class */
 
     DateWrap operator+(const DateWrap& date, int days);
 
     DateWrap operator+(int days, const DateWrap& date);
 
+    ostream& operator<<(ostream& os, const DateWrap& date)
+    {
+        int day, month, year;
+        dateGet(date.date, &day, &month, &year);
+        return os << day << "/" << month << "/" << year << endl;
+    }
+
 } //End of mtm namespace*/
+
 
 #endif //DATE_WRAP_H_
