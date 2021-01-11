@@ -2,10 +2,7 @@
 #ifndef CLOSED_EVENT_H_
 #define CLOSED_EVENT_H_
 
-#include "date_wrap.h"
-#include <stdlib.h>
-#include <string.h>
-#include <iostream>
+#include "base_event.h"
 using std::string;
 using mtm::BaseEvent;
 using mtm::PriorityQueue;
@@ -33,8 +30,7 @@ namespace mtm{
             PriorityQueue<int>::insert(student);
         }
         ClosedEvent* clone() const override{
-            BaseEvent* clone_event = clone();
-
+        BaseEvent* clone_event = clone();
         }
     };
 } //* End of mtm namespace*/
