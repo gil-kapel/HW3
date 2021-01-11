@@ -199,7 +199,11 @@ namespace mtm{
         {
             return os << printShort() << endl << this->membersList << endl;
         }
-        virtual BaseEvent* clone() const = 0;
+        virtual BaseEvent* clone() const = 0{
+            BaseEvent new_event(date, name, membersList);
+            new_event.membersList = membersList;
+            return *new_event;
+        }
     };
 
 } //* End of mtm namespace*/
