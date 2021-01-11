@@ -8,149 +8,167 @@
 using std::string;
 
 namespace mtm{
-    
-    template<class T>
-    struct node {
-	    T data;
-        node<T>* next;
-    };
-    
-    template<class T>
-    class LinkedList{
-	    node<T>* head;
+    template<class Data>
+    class PriorityQueue{
+        typedef struct node
+        {
+	        Data data;
+            struct node* next;
+        }Node*;
+        Node head;
+        Node iterator;
     public:
-	    LinkedList<T>()
+	    PriorityQueue<Data>()
         {
             head = NULL;
+            iterator = NULL;
 	    }
-	    ~LinkedList()
+	    ~PriorityQueue()
         {
-            node<T>* new_node = head;
-            while(new_node)
+            Node position = head;
+            while(position)
             {
-                new_node = head->next;
-                delete[] head;
+                Node to_delete = head;
+                delete to_delete.data;
+                to_delete.next = NULL;
+                position = head.next;
+                head = position;
+                delete to_delete;
             }
-        }
-        LinkedList& operator=(const LinkedList& list)
+        }        
+        PriorityQueue& operator=(const PriorityQueue& pq)
         {
-            if(this == &list)
+            if(this == &pq)
             {
                 return *this;
             }
-            node<T>* iteartor = head;
+            Node iteartor = head;
             while(iteartor)
             {
-                delete[] head;
-                iteartor = iteartor->next;
+                iteartor = head.next;
+                delete head;
             }
-            iteartor = list.head;
+            iteartor = pq.head;
             while(iteartor)
             {
-                insert(iteartor->data);
-                iteartor = iteartor->next;
+                insert(iteartor.data);
+                iteartor = pq.head.next;
             }
             return *this;
         }
-        void insertNodeToHead(T data)
+        void insertNodeToHead(Data data)
         {
-            node<T>* new_node = new node<T>;
-            new_node->data = data;
+            Node new_node = new node;
+            new_node.data = data;
             if(!head)
             {
                 head = new_node;
-                head->next = NULL;
+                head.next = NULL;
             }
             else
             {
-                new_node->next = head;
+                new_node.next = head;
                 head = new_node;
             }
         }
-        void insertNodeToCurrentPosition(node<T>* position, T data)
+        void insertNodeToCurrentPosition(Node position, Data data)
         {
-            node<T>* new_node = new node<T>;
-            new_node->data = data;
-            new_node->next = position->next;
-            position->next = new_node;
+            Node new_node = new node;
+            new_node.data = data;
+            new_node.next = position.next;
+            position.next = new_node;
         }
-        void insertNodeToButtom(node<T>* position, T data)
+        void insertNodeToButtom(Node position, Data data)
         {
-            node<T>* new_node = new node<T>;
-            new_node->data = data;
-            position->next = new_node;
-            new_node->next = NULL;
+            Node new_node = new node;
+            new_node.data = data;
+            position.next = new_node;
+            new_node.next = NULL;
         }
-        void insert(T data)
+        void insert(Data data)
         {
-		    if(!head || data > head->data) // The list is empty
+		    if(!head || data > head.data) // The list is empty or the new data is prior
             {
                 insertNodeToHead(data);
                 return;
             }
-            node<T>* position = head;
-            while(position->next)
+            Node position = head;
+            while(position.next)
             {
-                if(data > position->next->data)
+                Node next = position.next;
+                if(data > next.data)
                 {
                     insertNodeToCurrentPosition(position, data);
                     return;
                 }
-                position = position->next;
+                position = position.next;
             }
             insertNodeToButtom(position, data);
 		}
-        void remove(T data)
+        void remove(Data data)
         {
-            node<T>* position = head;
-            if(head->position == data)
+            Node position = head;
+            if(head.data == data)
             {
-                node<T>* to_delete = head;
-                head = head->next;
-                delete[] to_delete;
+                Node to_delete = head;
+                delete to_delete.data;
+                to_delete.next = NULL;
+                head = head.next;
+                delete to_delete;
             }
-            while(position->next)
+            while(position.next)
             {
-                if(position->data == data)
+                if(position.data == data)
                 {
-                    node<T>* to_delete = position->next;
-                    position->next = position->next->next;
-                    delete[] to_delete;
+                    Node to_delete = position.next;
+                    delete to_delete.data;
+                    position.next = to_delete.next;
+                    delete to_delete;
                 }
-                position = position->next;
+                position = position.next;
             }
         }
-        T get(int index)
+        Data getFirst()
         {
-		    if(index == 0) // Get the head element
+            if(head == NULL)
             {
-			    return this->head->data;
-		    }
-            else // Get the index of the element
-            {
-			    node<T>* current = this->head;
-			    for(int i = 0; i < index; ++i)
-                {
-			    	current = current->next;
-			    }
-			    return current->data;
+                iterator = NULL;
+                return NULL;
             }
-		}
-	    T operator[](int index)
-        {
-		    return get(index);
+            iterator = head;
+            return head.data;
         }
-};
-    
+        Data getNext()
+        {
+            if(queue->iterator->next == NULL)
+            {
+                return NULL;
+            }
+            iterator = iterator.next;
+            return iterator.data;
+        }
+        friend ostream& operator<<(ostream& os, const PriorityQueue& pq);
+    };
+    template<class Data>
+    virtual ostream& operator<<(ostream& os, const PriorityQueue& pq)
+    {
+        for (Data iterator = mtm::PriorityQueue::getFirst() ; iterator ; iterator = PriorityQueue::getNext())
+        {
+            os << iterator << endl;
+        }
+        return os;
+
+    }
+
     class BaseEvent{
         DateWrap date;
         string name;
-        LinkedList<int> membersList(); 
+        PriorityQueue<int> membersList(); 
     public:
         BaseEvent(DateWrap date, string name){
             this->date = mtm::DateWrap::operator=(date);
             this->name = name;
-            this->membersList = mtm::LinkedList<int>::LinkedList();
+            this->membersList = mtm::PriorityQueue<int>::PriorityQueue();
         }
         virtual ~BaseEvent() {}
         BaseEvent& operator=(const BaseEvent& event)
@@ -167,11 +185,20 @@ namespace mtm{
         }
         virtual void registerParticipant(int student)
         {
-            mtm::LinkedList<int>::insert(student);
+            mtm::PriorityQueue<int>::insert(student);
         }
-        virtual void unregisterParticipant(int student);
-        virtual std::ostream printShort(std::ostream);
-        virtual std::ostream printLong(std::ostream);
+        virtual void unregisterParticipant(int student)
+        {
+            mtm::PriorityQueue<int>::remove(student);
+        }
+        virtual std::ostream& printShort(std::ostream& os)
+        {
+            return os << this->name << " " << date << endl;
+        }
+        virtual std::ostream& printLong(std::ostream& os)
+        {
+            return os << printShort() << endl << this->membersList << endl;
+        }
         virtual BaseEvent* clone() const = 0;
     };
 
