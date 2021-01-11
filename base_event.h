@@ -18,7 +18,7 @@ namespace mtm{
         Node head;
         Node iterator;
     public:
-	    PriorityQueue<Data>()
+	    PriorityQueue()
         {
             head = NULL;
             iterator = NULL;
@@ -161,6 +161,7 @@ namespace mtm{
     }
 
     class BaseEvent{
+    protected:
         DateWrap date;
         string name;
         PriorityQueue<int> membersList(); 
@@ -203,6 +204,10 @@ namespace mtm{
             BaseEvent new_event(date, name, membersList);
             new_event.membersList = membersList;
             return *new_event;
+        }
+        PriorityQueue<int> getMembersList()
+        {
+            return membersList;
         }
     };
 
