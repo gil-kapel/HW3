@@ -167,7 +167,7 @@ namespace mtm{
         PriorityQueue<int> membersList(); 
     public:
         BaseEvent(DateWrap date, string name){
-            this->date = mtm::DateWrap::operator=(date);
+            this->date = date;
             this->name = name;
             this->membersList = mtm::PriorityQueue<int>::PriorityQueue();
         }
