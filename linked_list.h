@@ -197,7 +197,7 @@ namespace mtm{
 	    for(int i = 0; i < linked.size; i++) 
         {
             Node* temp = linked.head; 
-            std::cout << temp->data << endl;
+            os << temp->data << endl;
             temp = temp->next;
         }
         return os;
