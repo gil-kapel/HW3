@@ -23,10 +23,11 @@ namespace mtm{
         virtual EventContainer(const EventContainer&) {} // copy constructor
         virtual ~EventContainer() {} // d'tor
         EventContainer& EventContainer::operator= (const EventContainer& ec){ // assignment operator
-            if(this != &ec){
+            if(this == &ec){
                 return *this;            
             }
-    
+        EventContainer& operator++ (); 
+        EventIterator::EventIterator()
         //BaseEvent& operator=(const BaseEvent& event)
         //{
             // if(this == &event)
@@ -45,7 +46,7 @@ namespace mtm{
         }
         virtual void begin()
         {
-            //mtm::PriorityQueue<int>::()
+            return EventContainer::EventIterator()
         }
         virtual void end()
         {
@@ -60,10 +61,9 @@ namespace mtm{
         //     new_event.membersList = membersList;
         //     return *new_event;
         // }
-        // PriorityQueue<int> getMembersList()
-        // {
-        //     return membersList;
-        // }
     };
-}
+    Number& Number::operator++ (){
+        ++iter; // is it right?
+        return *this;
+    }
 #endif //EVENT_CONTAINER_H_
