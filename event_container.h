@@ -24,9 +24,9 @@ namespace mtm{
         virtual ~EventContainer() {} // d'tor
         EventContainer& EventContainer::operator= (const EventContainer& ec){ // assignment operator
             if(this != &ec){
-                throw self_assign;
+                return *this;            
             }
-            return *this;
+    
         //BaseEvent& operator=(const BaseEvent& event)
         //{
             // if(this == &event)
