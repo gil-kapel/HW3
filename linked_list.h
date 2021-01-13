@@ -197,8 +197,8 @@ namespace mtm{
 	    for(int i = 0; i < linked.size; i++) 
         {
             Node* temp = linked.head; 
-            os << temp->data << endl;
-            temp = temp->next;
+            os << temp->getData() << endl;
+            temp = temp->getNext();
         }
         return os;
     }
