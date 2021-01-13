@@ -18,7 +18,6 @@ namespace mtm
         Node(): data(0), next(0){}
         Node(Data data = 0, Node* next = 0);
         Data getData();
-        void setData(Data new_data);
         Node* getNext();
         Node& operator=(const Node& node);
         void setNext(Node *new_next);
@@ -52,11 +51,6 @@ namespace mtm
     Data Node<Data>::getData()
     {
         return data;
-    }
-    template<class Data>
-    void Node<Data>::setData(Data new_data)
-    {
-        data = new_data;
     }
     template<class Data>
     Node<Data>* Node<Data>::getNext()
@@ -235,9 +229,9 @@ namespace mtm
     template <class Data>
     ostream& operator<<(ostream& os, LinkedList<Data>& linked)
     {
-	    for(int i = 0; i < linked.getSize(); i++)
+        Node<Data>* temp = linked.getFirst(); 
+        for(int i = 0; i < linked.getSize(); i++)
         {
-            Node<Data>* temp = linked.getFirst(); 
             os << temp->getData() << endl;
             temp = temp->getNext();
         }
