@@ -238,7 +238,7 @@ namespace mtm
 	    for(int i = 0; i < linked.getSize(); i++)
         {
             Node<Data>* temp = linked.getFirst(); 
-            return os << temp->getData() << endl;
+            os << temp->getData() << endl;
             temp = temp->getNext();
         }
         return os;
