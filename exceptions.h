@@ -3,11 +3,6 @@
 
 #include <iostream>
 #include <exception>
-
-using std::cout;
-using std::cerr;
-using std::cin;
-using std::endl;
 using std::exception;
 
 namespace mtm{
