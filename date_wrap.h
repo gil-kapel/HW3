@@ -3,7 +3,6 @@
 
 #include <iostream>
 
-
 #define MIN_DAY 1
 #define MAX_DAY 30
 #define MIN_MONTH 1
@@ -21,7 +20,6 @@ using std::ostream;
 
 
 namespace mtm{
-    
     class DateWrap{
         Date date; 
     public:
@@ -29,9 +27,9 @@ namespace mtm{
         DateWrap(int day, int month, int year);
         ~DateWrap();
         DateWrap& operator=(const DateWrap& date);
-        int getDay(const DateWrap& date);
-        int getMonth(const DateWrap& date);
-        int getYear(const DateWrap& date);
+        int getDay(const DateWrap& date) const;
+        int getMonth(const DateWrap& date) const;
+        int getYear(const DateWrap& date) const;
         bool operator==(const DateWrap& date)const;
         bool operator>=(const DateWrap& date)const;
         bool operator<=(const DateWrap& date)const;
@@ -49,9 +47,8 @@ namespace mtm{
 
     ostream& operator<<(ostream& os, const DateWrap& date)
     {
-        int day, month, year;
-        dateGet(date.date, &day, &month, &year);
-        return os << day << "/" << month << "/" << year << endl;
+
+        return os << date.getDay(date) << "/" << date.getMonth(date) << "/" << date.getYear(date) << endl;
     }
 
 } //End of mtm namespace*/

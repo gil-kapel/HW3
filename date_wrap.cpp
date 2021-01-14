@@ -9,13 +9,13 @@ using std::cerr;
 using std::cin;
 using std::endl;
 using std::ostream;
-
+using mtm::Exception;
 
 void DateWrap::isDateValid(int day, int month)const
 {
     if((month >= MIN_MONTH) && (month <= MAX_MONTH) && (day >= MIN_DAY) && (day <= MAX_DAY))
     {
-        throw mtm::InvalidDate();
+        throw InvalidDate();
     }
     return;
 }
@@ -24,10 +24,10 @@ DateWrap::DateWrap(int day, int month, int year)
 {
     try{
         isDateValid(day,month);
-        this->date = dateCreate(day, month, year);
-    } catch (mtm::InvalidDate& e){
-        cerr << "InvalidDate";
+    } catch (mtm::InvalidDate){
+        cerr << "InvalidDate" << endl;
     }
+    this->date = dateCreate(day, month, year);
 }
 
 DateWrap::~DateWrap()
@@ -46,7 +46,7 @@ DateWrap& DateWrap::operator=(const DateWrap& date)
     return *this;
 }
 
-int DateWrap::getDay(const DateWrap& date)
+int DateWrap::getDay(const DateWrap& date) const
 {
     int day, month, year;
     if(!dateGet(date.date, &day, &month, &year))
@@ -56,7 +56,7 @@ int DateWrap::getDay(const DateWrap& date)
     return day;
 }
 
-int DateWrap::getMonth(const DateWrap& date)
+int DateWrap::getMonth(const DateWrap& date) const
 {
     int day, month, year;
     if(!dateGet(date.date, &day, &month, &year))
@@ -66,7 +66,7 @@ int DateWrap::getMonth(const DateWrap& date)
     return month;
 }
 
-int DateWrap::getYear(const DateWrap& date)
+int DateWrap::getYear(const DateWrap& date) const
 {
     int day, month, year;
     if(!dateGet(date.date, &day, &month, &year))
