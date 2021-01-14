@@ -17,8 +17,8 @@ namespace mtm
     public:
         Node(): data(0), next(0){}
         Node(Data data = 0, Node* next = 0);
-        Data getData();
-        Node* getNext();
+        Data getData() const;
+        Node* getNext() const;
         Node& operator=(const Node& node);
         void setNext(Node *new_next);
     };
@@ -35,9 +35,9 @@ namespace mtm
         void insertNodeToButtom(Node<Data>* position, Data data);
         void insert(Data data);
         bool contains(Data data);
-        Data get(int index);
-        Node <Data>* getFirst();
-        int  getSize();
+        Data get(int index) const;
+        Node <Data>* getFirst() const;
+        int  getSize() const;
         void removeHead();
         void removeData(Data data);
     };
@@ -48,12 +48,12 @@ namespace mtm
         this->next = next;
     }
     template<class Data>
-    Data Node<Data>::getData()
+    Data Node<Data>::getData() const
     {
         return data;
     }
     template<class Data>
-    Node<Data>* Node<Data>::getNext()
+    Node<Data>* Node<Data>::getNext() const
     {
         return this->next;
     }
@@ -172,7 +172,7 @@ namespace mtm
         return false;
     }
     template<class Data>
-    Data LinkedList<Data>::get(int index)
+    Data LinkedList<Data>::get(int index)const
     {
         Node<Data> *temp = head;
         if(index >= size) return 0;
@@ -183,12 +183,12 @@ namespace mtm
         return temp->data;
     }
     template<class Data>
-    Node<Data>* LinkedList<Data>::getFirst()
+    Node<Data>* LinkedList<Data>::getFirst() const
     {
         return this->head;
     }
     template<class Data>
-    int LinkedList<Data>::getSize()
+    int LinkedList<Data>::getSize()const
     {
         return size;
     }
@@ -227,7 +227,7 @@ namespace mtm
         }
     }
     template <class Data>
-    ostream& operator<<(ostream& os, LinkedList<Data>& linked)
+    ostream& operator<<(ostream& os, const LinkedList<Data>& linked)
     {
         Node<Data>* temp = linked.getFirst(); 
         for(int i = 0; i < linked.getSize(); i++)
@@ -237,7 +237,6 @@ namespace mtm
         }
         return os;
     }
-
 }
 
 #endif //LINKED_LIST_H_

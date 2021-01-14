@@ -4,6 +4,7 @@
 using mtm::LinkedList;
 using mtm::Node;
 using namespace std;
+using std::string;
 int main()
 {
 	LinkedList<int> members_list;
