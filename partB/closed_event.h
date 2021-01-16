@@ -13,7 +13,7 @@ namespace mtm{
         ClosedEvent(DateWrap new_date, string new_name);
         ~ClosedEvent();
         ClosedEvent(const ClosedEvent& closed_event);
-        void addInvetee(int student);
+        void addInvitee(int student);
         void registerParticipant(int student);
         BaseEvent* clone() const;
     };

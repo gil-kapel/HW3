@@ -22,7 +22,7 @@ namespace mtm{
         BaseEvent(DateWrap new_date, string new_name);
         BaseEvent(const BaseEvent& base_event);
         virtual ~BaseEvent() {}
-        virtual BaseEvent& operator=(const BaseEvent& event);
+        BaseEvent& operator=(const BaseEvent& event);
         virtual void registerParticipant(int student);
         virtual void unregisterParticipant(int student);
         virtual std::ostream& printShort(std::ostream& os);
