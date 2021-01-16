@@ -1,3 +1,7 @@
+reorganized all of the files into libraries - notice that the #include paths changed as well
+
+
+
 part 1:
 1) test algorithems...
 part 2:
