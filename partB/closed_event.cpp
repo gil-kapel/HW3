@@ -25,7 +25,7 @@ ClosedEvent::ClosedEvent(const ClosedEvent& closed_event):
 
 ClosedEvent::~ClosedEvent(){}
 
-void ClosedEvent::addInvetee(int student)
+void ClosedEvent::addInvitee(int student)
 {
     if(invetee_list.contains(student))
     {
