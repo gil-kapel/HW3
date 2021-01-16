@@ -10,7 +10,7 @@
 
 extern "C"
 {
-    #include "date.h"
+    #include "../provided/date.h"
 }
 using std::cout;
 using std::cerr;
