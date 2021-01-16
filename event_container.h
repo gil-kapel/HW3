@@ -18,8 +18,8 @@ namespace mtm{
         EventContainer(PriorityQueue <int> membersList)
         : membersList() // we want empty queue so there is nothing inside 
         {}
-        virtual EventContainer(const EventContainer&) {} // copy constructor
-        virtual ~EventContainer() {} // d'tor
+        EventContainer(const EventContainer&) {} // copy constructor
+        ~EventContainer() {} // d'tor
         virtual void add(BaseEvent&) = 0 {
             mtm::PriorityQueue<int>::add(BaseEvent);//??
         }
@@ -31,30 +31,26 @@ namespace mtm{
         }
         class EventIterator{
             public:
-            EventIterator& operator= (const EventIterator& it){ // assignment operator
-            if(this == &ec){
-                return *this;            
+            EventIterator& operator=(const EventIterator& it){ // assignment operator
+                if(this == &ec){
+                    return *this;            
+                }
+                EventIterator& operator++(){
+                }
+                Number& Number::operator++(){ // ++ operator
+                ++it; // is it right?
+                return *this;
+                }
+                BaseEvent* EventIterator::operator->()//(const EventContainer& ec)
+                {
+                    return iter; // reference to BaseEvent
+                } 
+            };
+            bool EventContainer::EventIterator operator==(const EventIterator& it){
+                return it == iter; //
             }
-            EventIterator& operator++(){
-            }
-            Number& Number::operator++ (){ // ++ operator
-            ++it; // is it right?
-            return *this;
-            }
-            EventIterator operator*(const EventContainer& ec)
-            {
-                return BaseEvent&; // reference to BaseEvent
-            }
-            bool operator==(const EventContainer& ec) const;
-            bool operator!=(const EventContainer& ec) const;
-            
-            
-    };
 
-  
-
-
-
+ };
 
 //     class Example {
 //     protected:
