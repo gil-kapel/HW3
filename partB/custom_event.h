@@ -15,16 +15,17 @@ namespace mtm{
         CustomEvent(const CustomEvent& custom_event);
         ~CustomEvent() {}
         void registerParticipant(int student);
-        BaseEvent* clone();
+        BaseEvent* clone() const;
     };
     template<class CanRegister>
     CustomEvent<CanRegister>::CustomEvent(DateWrap new_date, string new_name, CanRegister cond):
-        BaseEvent(new_date,new_name), condition(cond) {
+        BaseEvent(new_date,new_name){
+        condition = CanRegister(cond);
     }
     template<class CanRegister>
     CustomEvent<CanRegister>::CustomEvent(const CustomEvent& custom_event):
-        date(custom_event.date), name(custom_event.name), members_list(custom_event.members_list),
-        condition(custom_event.condition){
+        BaseEvent(custom_event){
+        condition = CanRegister(custom_event.condition);
     }
     template<class CanRegister>
     void CustomEvent<CanRegister>::registerParticipant(int student)
@@ -40,10 +41,9 @@ namespace mtm{
         else throw mtm::RegistrationBlocked();
     }
     template<class CanRegister>
-    BaseEvent* CustomEvent<CanRegister>::clone() 
+    BaseEvent* CustomEvent<CanRegister>::clone() const
     {
-        CustomEvent custom_event(this);
-        return *custom_event;
+        return new CustomEvent(*this);
     }
 
 } //* End of mtm namespace*/
