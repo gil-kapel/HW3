@@ -15,9 +15,9 @@ namespace mtm{
     protected:
         PriorityQueue <int> membersList; 
     public:
-        EventContainer(PriorityQueue <int> membersList): () {};//members_list = LinkedList<int>(); // we want empty queue so there is nothing inside 
-        EventContainer(const EventContainer& ec) {} // copy constructor
-        EventContainer& operator=(const EventContainer& ec){ //assignment operator
+        EventContainer::EventContainer(PriorityQueue <int> membersList): () {};//members_list = LinkedList<int>(); // we want empty queue so there is nothing inside 
+        EventContainer::EventContainer(const EventContainer& ec) {} // copy constructor
+        EventContainer& EventContainer::operator=(const EventContainer& ec){ //assignment operator
             if (this == &ec){
 		        return *this;
             }
@@ -26,15 +26,14 @@ namespace mtm{
         virtual void add(BaseEvent&) {
            // mtm::PriorityQueue<int>::add(BaseEvent);//??
             if(){ // choose condition for exception
-            throw NotSupported;// write exception
+                throw NotSupported;// write exception
+            }
+            PriorityQueue::insert(ec);
         }
-        PriorityQueue::insert(ec);
+        virtual EventContainer::EventIterator begin() = 0 { // pure virtual function 
         }
-        virtual void begin() = 0 { // pure virtual function
-            return EventContainer::EventIterator() 
-        }
-        virtual void end() = 0 {  // pure virtual function
-           return EventContainer::EventIterator()
+        virtual EventContainer::EventIterator end() = 0 {  // pure virtual function , void or iter?
+           //return 
         }
         class EventIterator{
             public:
@@ -45,15 +44,15 @@ namespace mtm{
                 if(this == &ec){
                     return *this;            
                 }
-                EventIterator& operator++(const EventIterator& iter){// ++ operator
+            }
+            EventIterator& operator++(const EventIterator& iter){// ++ operator
                 ++iter; // is it right?
                 return *this;
-                }
-                BaseEvent* EventIterator::operator->()//(const EventContainer& ec)
-                {
+            }
+            BaseEvent* EventIterator::operator->(){//(const EventContainer& ec){
                     return iter; // reference to BaseEvent
-                } 
-            };
+            } 
+        };
             bool EventContainer::EventIterator operator==(const EventIterator& it, const EventIterator& iter){
                 return it == iter; //
             }
@@ -62,8 +61,8 @@ namespace mtm{
                 return !(iter1 == iter2);
             }
             
-
- };
+    }
+ 
 
 //     class Example {
 //     protected:
