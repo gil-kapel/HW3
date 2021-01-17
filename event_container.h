@@ -18,27 +18,32 @@ namespace mtm{
         EventContainer(PriorityQueue <int> membersList)
         : membersList() // we want empty queue so there is nothing inside 
         {}
-        EventContainer(const EventContainer&) {} // copy constructor
+        EventContainer(const EventContainer& ec) {} // copy constructor
         ~EventContainer() {} // d'tor
-        virtual void add(BaseEvent&) = 0 {
-            mtm::PriorityQueue<int>::add(BaseEvent);//??
+        virtual void add(BaseEvent&) {
+           // mtm::PriorityQueue<int>::add(BaseEvent);//??
+            if(){ // choose condition for exception
+            throw NotSupported;// write exception
         }
-        virtual void begin() = 0 {
-            return EventContainer::EventIterator()
+        PriorityQueue::insert(ec);
         }
-        virtual void end() = 0 {
+        virtual void begin() = 0 { // pure virtual function
+            return EventContainer::EventIterator() 
+        }
+        virtual void end() = 0 {  // pure virtual function
            return EventContainer::EventIterator()
         }
         class EventIterator{
             public:
+            EventIterator() {}
+            EventIterator(const EventIterator& it) {} //copy 
+            ~EventIterator() {}
             EventIterator& operator=(const EventIterator& it){ // assignment operator
                 if(this == &ec){
                     return *this;            
                 }
-                EventIterator& operator++(){
-                }
-                Number& Number::operator++(){ // ++ operator
-                ++it; // is it right?
+                EventIterator& operator++(const EventIterator& iter){// ++ operator
+                ++iter; // is it right?
                 return *this;
                 }
                 BaseEvent* EventIterator::operator->()//(const EventContainer& ec)
@@ -46,9 +51,14 @@ namespace mtm{
                     return iter; // reference to BaseEvent
                 } 
             };
-            bool EventContainer::EventIterator operator==(const EventIterator& it){
+            bool EventContainer::EventIterator operator==(const EventIterator& it, const EventIterator& iter){
                 return it == iter; //
             }
+            bool EventContainer::EventIterator operator !=(const EventIterator& iter1, const EventIterator& iter2)
+            {
+                return !(iter1 == iter2);
+            }
+            
 
  };
 
