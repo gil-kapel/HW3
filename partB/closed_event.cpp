@@ -43,7 +43,7 @@ void ClosedEvent::registerParticipant(int student)
         {
             throw mtm::AlreadyRegistered();
         }
-        this->members_list.insert(student);
+        members_list.insert(student);
     }
     else throw mtm::RegistrationBlocked();
 }

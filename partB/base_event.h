@@ -29,7 +29,12 @@ namespace mtm{
         virtual std::ostream& printLong(std::ostream& os);
         LinkedList<int> getMembersList();
         virtual BaseEvent* clone() const = 0;
+	    friend bool operator==(const BaseEvent& event1, const BaseEvent& event2);
+        friend bool operator>(const BaseEvent& event1, const BaseEvent& event2);
+        friend bool operator<(const BaseEvent& event1, const BaseEvent& event2);
     };
+
 } //* End of mtm namespace*/
+
 
 #endif //BASE_EVENT_H_

@@ -38,7 +38,7 @@ void BaseEvent::registerParticipant(int student)
     {
         throw mtm::AlreadyRegistered();
     }
-    this->members_list.insert(student);
+    members_list.insert(student);
 }
 void BaseEvent::unregisterParticipant(int student)
 {
@@ -46,7 +46,7 @@ void BaseEvent::unregisterParticipant(int student)
     {
         throw mtm::NotRegistered();
     }
-    this->members_list.remove(student);
+    members_list.remove(student);
 }
 std::ostream& BaseEvent::printShort(std::ostream& os)
 {
@@ -60,3 +60,31 @@ LinkedList<int> BaseEvent::getMembersList()
 {
     return members_list;
 }
+bool mtm::operator==(const BaseEvent& event1, const BaseEvent& event2)
+{
+    if(event1.date == event2.date)
+    {
+        return true;
+    }
+    else return false;
+}
+bool mtm::operator>(const BaseEvent& event1, const BaseEvent& event2)
+{
+    if(event1.date > event2.date)
+    {
+        return true;
+    }
+    else if(event1.date == event2.date)
+    {
+        if(event1.name.compare(event2.name) > 0)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+bool mtm::operator<(const BaseEvent& event1, const BaseEvent& event2)
+{
+    return (!(event1 > event2) && !(event1==event2));
+}
+
