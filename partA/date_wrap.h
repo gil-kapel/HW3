@@ -3,11 +3,6 @@
 
 #include <iostream>
 
-#define MIN_DAY 1
-#define MAX_DAY 30
-#define MIN_MONTH 1
-#define MAX_MONTH 12
-
 extern "C"
 {
     #include "../provided/date.h"

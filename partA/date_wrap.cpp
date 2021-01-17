@@ -10,10 +10,11 @@ using std::cin;
 using std::endl;
 using std::ostream;
 
+const int min_day = 1, max_day = 30, min_month = 1, max_month = 12;
 
 DateWrap::DateWrap(int day, int month, int year)
 {
-    if((month < MIN_MONTH) || (month > MAX_MONTH) || (day < MIN_DAY) || (day > MAX_DAY))
+    if((month < min_month) || (month > max_month) || (day < min_day) || (day > max_day))
     {
         throw mtm::InvalidDate();
     }
