@@ -6,87 +6,33 @@
 using std::exception;
 
 namespace mtm{
-    class Exception : public std::exception{
-    };
+    class Exception : public std::exception{};
 
-    class InvalidDate : public Exception{
-    public:
-        InvalidDate() = default;
-        const char* what() const noexcept;
-    };
+    class InvalidDate : public Exception{};
 
-    class NegativeDays : public Exception{
-    public:
-        NegativeDays() = default;
-        const char* what() const noexcept;
-    };
+    class NegativeDays : public Exception{};
 
-    class NotRegistered : public Exception{
-    public:
-        NotRegistered() = default;
-        const char* what() const noexcept;
-    };
+    class NotRegistered : public Exception{};
     
-    class InvalidMember : public Exception{
-    public:
-        InvalidMember() = default;
-        const char* what() const noexcept;
-    };
+    class InvalidMember : public Exception{};
     
-    class FullList : public Exception{
-    public:
-        FullList() = default;
-        const char* what() const noexcept;
-    };
+    class FullList : public Exception{};
     
-    class AlreadyRegistered : public Exception{
-    public:
-        AlreadyRegistered() = default;
-        const char* what() const noexcept;
-    };
+    class AlreadyRegistered : public Exception{};
     
-    class AlreadyInvited : public Exception{
-    public:
-        AlreadyInvited() = default;
-        const char* what() const noexcept;
-    };
+    class AlreadyInvited : public Exception{};
 
-    class RegistrationBlocked : public Exception{
-    public:
-        RegistrationBlocked() = default;
-        const char* what() const noexcept;
-    };
+    class RegistrationBlocked : public Exception{};
 
-    class NotSupported : public Exception{
-    public:
-        NotSupported() = default;
-        const char* what() const noexcept;
-    };
+    class NotSupported : public Exception{};
         
-    class DateMismatch : public Exception{
-    public:
-        DateMismatch() = default;
-        const char* what() const noexcept;
-    };
+    class DateMismatch : public Exception{};
 
-    class InvalidNumber : public Exception{
-    public:
-        InvalidNumber() = default;
-        const char* what() const noexcept;
-    };
+    class InvalidNumber : public Exception{};
 
-    class EventAlreadyExists : public Exception{
-    public:
-        EventAlreadyExists() = default;
-        const char* what() const noexcept;
-    };
+    class EventAlreadyExists : public Exception{};
 
-    class EventDoesNotExist : public Exception{
-    public:
-        EventDoesNotExist() = default;
-        const char* what() const noexcept;
-    };
-
+    class EventDoesNotExist : public Exception{};
 
 } //* End of mtm namespace */
 

@@ -25,11 +25,12 @@ namespace mtm{
     public:
         void isDateValid(int day, int month)const;
         DateWrap(int day, int month, int year);
+        DateWrap(const DateWrap& new_date);
         ~DateWrap();
         DateWrap& operator=(const DateWrap& date);
-        int getDay(const DateWrap& date) const;
-        int getMonth(const DateWrap& date) const;
-        int getYear(const DateWrap& date) const;
+        int day();
+        int month();
+        int year();
         bool operator==(const DateWrap& date)const;
         bool operator>=(const DateWrap& date)const;
         bool operator<=(const DateWrap& date)const;
@@ -45,10 +46,7 @@ namespace mtm{
 
     DateWrap operator+(int days, const DateWrap& date);
 
-    ostream& operator<<(ostream& os, const DateWrap& date)
-    {
-        return os << date.getDay(date) << "/" << date.getMonth(date) << "/" << date.getYear(date) << endl;
-    }
+    ostream& operator<<(ostream& os, const DateWrap& date);
 
 } //End of mtm namespace*/
 

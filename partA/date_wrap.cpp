@@ -10,19 +10,18 @@ using std::cin;
 using std::endl;
 using std::ostream;
 
-void DateWrap::isDateValid(int day, int month)const
-{
-    if((month >= MIN_MONTH) && (month <= MAX_MONTH) && (day >= MIN_DAY) && (day <= MAX_DAY))
-    {
-        throw mtm::InvalidDate();
-    }
-    return;
-}
 
 DateWrap::DateWrap(int day, int month, int year)
 {
-    isDateValid(day,month);
-    this->date = dateCreate(day, month, year);
+    if((month < MIN_MONTH) || (month > MAX_MONTH) || (day < MIN_DAY) || (day > MAX_DAY))
+    {
+        throw mtm::InvalidDate();
+    }
+    date = dateCreate(day, month, year);
+}
+
+DateWrap::DateWrap(const DateWrap& new_date):
+    date(dateCopy(new_date.date)){
 }
 
 DateWrap::~DateWrap()
@@ -41,30 +40,33 @@ DateWrap& DateWrap::operator=(const DateWrap& date)
     return *this;
 }
 
-int DateWrap::getDay(const DateWrap& date) const
+int DateWrap::day() 
 {
     int day, month, year;
-    if(!dateGet(date.date, &day, &month, &year))
+    DateWrap temp_date = *this;
+    if(!dateGet(temp_date.date, &day, &month, &year))
     {
         return 0;
     }
     return day;
 }
 
-int DateWrap::getMonth(const DateWrap& date) const
+int DateWrap::month() 
 {
     int day, month, year;
-    if(!dateGet(date.date, &day, &month, &year))
+    DateWrap temp_date(*this);
+    if(!dateGet(temp_date.date, &day, &month, &year))
     {
         return 0;
     }
     return month;
 }
 
-int DateWrap::getYear(const DateWrap& date) const
+int DateWrap::year() 
 {
     int day, month, year;
-    if(!dateGet(date.date, &day, &month, &year))
+    DateWrap temp_date(*this);
+    if(!dateGet(temp_date.date, &day, &month, &year))
     {
         return 0;
     }
@@ -154,4 +156,10 @@ DateWrap mtm::operator+(int days, const DateWrap& date)
     }
     DateWrap new_date = date;
     return new_date += days;
+}
+
+ostream& mtm::operator<<(ostream& os, const DateWrap& date)
+{
+    DateWrap new_date(date);
+    return os << new_date.day() << "/" << new_date.month() << "/" << new_date.year();
 }
