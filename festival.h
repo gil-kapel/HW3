@@ -15,7 +15,7 @@ namespace mtm{
     public:
     Festival(DateWrap <int>date) :
         Festival::festival(DateWrap <int>date)  {} // we want empty queue so there is nothing inside 
-    void Festival::add(const BaseEvent& added_event){ // add new event if not similar
+    void Festival::add(const BaseEvent& added_event) override{ // add new event if not similar
         if(added_event.date != Festival.date){ // choose condition for exception
             throw DataMismatch;// write exception
         }
