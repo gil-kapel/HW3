@@ -24,7 +24,7 @@ namespace mtm{
     void Festival::begin(const BaseEvent& first_event){
         return PriorityQueue::getFirst();
     }
-    void Festival::end(const BaseEvent& added_event){
+    void Festival::end(const BaseEvent& last_event){
        return PriorityQueue::getNext(); // is it the one *after* the last event??
     }
 // mtm:festival festival(mtm::datewrap)
