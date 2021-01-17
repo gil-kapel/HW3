@@ -17,6 +17,11 @@ namespace mtm{
     public:
         EventContainer(PriorityQueue <int> membersList): () {};//members_list = LinkedList<int>(); // we want empty queue so there is nothing inside 
         EventContainer(const EventContainer& ec) {} // copy constructor
+        EventContainer& operator=(const EventContainer& ec){ //assignment operator
+            if (this == &ec){
+		        return *this;
+            }
+	    }
         virtual ~EventContainer() {} //virtual d'tor for abstract parent function 
         virtual void add(BaseEvent&) {
            // mtm::PriorityQueue<int>::add(BaseEvent);//??
