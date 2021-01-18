@@ -63,12 +63,10 @@ void Schedule::unregisterFromEvent(DateWrap event_date, string event_name, int s
         if(iterator.iter->getEventDate() == event_date && iterator.iter->getEventName() == event_name)
         {
             iterator.iter->unregisterParticipant(student);
-            delete event;
             return;
         }
         ++iterator;
     }
-    delete event;
     throw mtm::EventDoesNotExist();
 }
 
@@ -84,8 +82,10 @@ void Schedule::printAllEvents()
 
 void Schedule::printMonthEvents(int month, int year)
 {
+    DateWrap first_day(1,month,year);
+    DateWrap last_day(30,month,year);
     EventContainer::EventIterator iterator = event_manager->begin();
-    while(iterator.iter)
+    while(iterator.iter->getEventDate() >= first_day && iterator.iter->getEventDate() <= last_day)
     {
         iterator.iter->printShort(cout);
         ++iterator;
@@ -99,5 +99,15 @@ void Schedule::printSomeEvents(class predicate, bool verbose)
 
 void Schedule::printEventDetails(string event_name, Date event_date)
 {
-
+    EventContainer::EventIterator iterator = event_manager->begin();
+    while(iterator.iter)
+    {
+        if(iterator.iter->getEventDate() == event_date && iterator.iter->getEventName() == event_name)
+        {
+            iterator.iter->printLong(cout);
+            return;
+        }
+        ++iterator;
+    }
+    throw mtm::EventDoesNotExist();
 }
