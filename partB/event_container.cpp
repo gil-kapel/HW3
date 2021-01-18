@@ -47,14 +47,14 @@ EventContainer& EventContainer::operator=(const EventContainer& ec)
 // 	//delete events_list;
 // }
 
-EventContainer::EventIterator(){
-    iter = new BaseEvent;
-    iter = 0;
-}
+// EventContainer::EventIterator(){
+//     iter = new BaseEvent; ////////// add iter pointer
+//     iter = 0;
+// }
 
 
 EventContainer::EventIterator(const EventIterator& it):{
-    this->iter = new BaseEvent;
+    this->iter = new BaseEvent; // pointer
     this->iter = it;
 }
 
