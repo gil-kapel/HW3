@@ -5,7 +5,6 @@
 #include "../partA/exceptions.h"
 #include "linked_list.h"
 #include "base_event.h"
-#include "priority_queue.h"
 #include <stdlib.h>
 #include <string>
 #include <iostream>
