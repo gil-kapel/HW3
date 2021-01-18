@@ -17,16 +17,16 @@ using std::endl;
 namespace mtm{
     class EventContainer{
     protected:
-        LinkedList<const BaseEvent&> events_list; 
+        LinkedList<BaseEvent*> events_list; 
     public:
         class EventIterator{
         protected:
-            BaseEvent* iter;
+            Node* iter;
         public:
             EventIterator() = default;
             EventIterator(const EventIterator& it);
             EventIterator& operator=(const EventIterator& it);
-            ~EventIterator();
+            ~EventIterator(); //should be also virtual???
             EventIterator& operator++();
             // BaseEvent& EventIterator::operator->();//????
             BaseEvent& EventIterator::operator*();
