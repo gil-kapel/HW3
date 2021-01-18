@@ -32,6 +32,14 @@ BaseEvent& BaseEvent::operator=(const BaseEvent& event)
     members_list = event.members_list;
     return *this;
 }
+DateWrap BaseEvent::getEventDate()
+{
+    return date;
+}
+string BaseEvent::getEventName()
+{
+    return name;
+}
 void BaseEvent::registerParticipant(int student)
 {
     if(members_list.contains(student))

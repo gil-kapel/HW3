@@ -1,13 +1,8 @@
 #include "schedule.h"
-#include "../partA/exceptions.h"
 #include <iostream>
 #include <string>
 
-using std::find;
-
 using std::cout;
-using std::cerr;
-using std::cin;
 using std::endl;
 using std::ostream;
 using std::string;
@@ -15,57 +10,94 @@ using mtm::DateWrap;
 using mtm::LinkedList;
 using mtm::BaseEvent;
 using mtm::EventContainer;
+using mtm::Schedule;
 
-Schedule::Schedule(): event_manager = EventContainer(){
-    }
+Schedule::Schedule(){}
 
-~Schedule(){
-}
+Schedule::~Schedule(){}
 
-void addEvents(const EventContainer& event_container)
+void Schedule::addEvents(const EventContainer& event_container)
 {
-    EventIterator *event_exist = event_container.it;
-    EventIterator *it = event_container.it;
-    while(event_exist)
+    EventContainer::EventIterator iterator = event_manager->begin();
+    while(iterator.iter)
     {
-        if(event_manager.contains(*event_exist))
+        if(event_manager->events_list.contains(*iterator.iter))
         {
             throw mtm::EventAlreadyExists();
         }
+         ++iterator.iter;
     }
-    while(it)
+    iterator = event_manager->begin();
+    while(iterator.iter)
     {
-        event_manager.insert(*it);
+        event_manager->add(*iterator.iter);
+        ++iterator;
     }
 }
 
-void registerToEvent(Date event_date, string event_name, int student)
+void Schedule::registerToEvent(DateWrap event_date, string event_name, int student)
 {
-    BaseEvent event(event_date, event_name);
-    BaseEvent is_event_exist = find(event_manager.it, 0 , event);
-    if(!is_event_exist)
+    EventContainer::EventIterator iterator = event_manager->begin();
+    BaseEvent* event;
+    OpenEvent new_event(event_date,event_name);
+    event = new_event.clone();
+    while(iterator.iter)
     {
-        throw mtm::EventDoesNotExist();
+        if(iterator.iter == event)
+        {
+            event->registerParticipant(student);
+            delete event;
+            return;
+        }
+        ++iterator;
     }
-    if() ///need to check if the event is closed / open / have a custom registraions condition
-    is_event_exist.registerParticipant(student);
+    delete event;
+    throw mtm::EventDoesNotExist();
 }
 
-void unregisterFromEvent(Date event_date, string event_name, int student)
+void Schedule::unregisterFromEvent(DateWrap event_date, string event_name, int student)
 {
-    BaseEvent event(event_date, event_name);
-    BaseEvent is_event_exist = find(event_manager.it, 0 , event);
-    if(!is_event_exist)
+    EventContainer::EventIterator iterator = event_manager->begin();
+    while(iterator.iter)
     {
-        throw mtm::EventDoesNotExist();
+        if(iterator.iter->getEventDate() == event_date && iterator.iter->getEventName() == event_name)
+        {
+            iterator.iter->unregisterParticipant(student);
+            delete event;
+            return;
+        }
+        ++iterator;
     }
-    is_event_exist.unregisterParticipant(student);
+    delete event;
+    throw mtm::EventDoesNotExist();
 }
 
-void printAllEvents();
+void Schedule::printAllEvents()
+{
+    EventContainer::EventIterator iterator = event_manager->begin();
+    while(iterator.iter)
+    {
+        iterator.iter->printShort(cout);
+        ++iterator;
+    }
+}
 
-void printMonthEvents(int month, int year);
+void Schedule::printMonthEvents(int month, int year)
+{
+    EventContainer::EventIterator iterator = event_manager->begin();
+    while(iterator.iter)
+    {
+        iterator.iter->printShort(cout);
+        ++iterator;
+    }
+}
 
-void printSomeEvents(class predicate, bool verbose);
+void Schedule::printSomeEvents(class predicate, bool verbose)
+{
 
-void printEventDetails(string event_name, Date event_date);
+}
+
+void Schedule::printEventDetails(string event_name, Date event_date)
+{
+
+}

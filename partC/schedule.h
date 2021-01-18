@@ -17,18 +17,17 @@ using mtm::EventContainer;
 
 namespace mtm{
     class Schedule{
-        EventContainer event_manager;
+        EventContainer *event_manager;
     public:
         Schedule();
         ~Schedule();
         void addEvents(const EventContainer& event_container);
-        void registerToEvent(Date event_date, string event_name, int student);
-        void unregisterFromEvent(Date event_date, string event_name, int student);
+        void registerToEvent(DateWrap event_date, string event_name, int student);
+        void unregisterFromEvent(DateWrap event_date, string event_name, int student);
         void printAllEvents();
         void printMonthEvents(int month, int year);
         void printSomeEvents(class predicate, bool verbose);
         void printEventDetails(string event_name, Date event_date);
-    }
+    };
 }
-
-#endif /* SCHEDULE_H_
+#endif // SCHEDULE_H_
