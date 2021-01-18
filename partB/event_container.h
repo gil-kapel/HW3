@@ -1,5 +1,5 @@
 #ifndef EVENT_CONTAINER_H_
-#define VENT_CONTAINER_H_
+#define EVENT_CONTAINER_H_
 
 #include "../partA/date_wrap.h"
 #include "../partA/exceptions.h"
