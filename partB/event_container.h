@@ -20,7 +20,6 @@ namespace mtm{
         LinkedList<int> events_list; 
     public:
         class EventIterator{
-        protected:
             BaseEvent* iter;
         public:
             EventIterator();
@@ -43,4 +42,4 @@ namespace mtm{
     };
 } //* End of mtm namespace*/
 
-#endif //VENT_CONTAINER_H_
+#endif //EVENT_CONTAINER_H_
