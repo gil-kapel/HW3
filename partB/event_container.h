@@ -23,20 +23,21 @@ namespace mtm{
         protected:
             BaseEvent* iter;
         public:
-            EventIterator();
+            EventIterator() = default;
             EventIterator(const EventIterator& it);
             EventIterator& operator=(const EventIterator& it);
             ~EventIterator();
             EventIterator& operator++();
-            BaseEvent& EventIterator::operator->();//????
+            // BaseEvent& EventIterator::operator->();//????
+            BaseEvent& EventIterator::operator*();
             friend bool operator==(const EventIterator& it, const EventIterator& iter);
             friend bool operator!=(const EventIterator& it, const EventIterator& iter);
             friend class schedule;
         };
-        EventContainer();//(BaseEvent& new_event);//(PriorityQueue <int> membersList);
+        EventContainer()= default;//(BaseEvent& new_event);//(PriorityQueue <int> membersList);
         EventContainer(const EventContainer& ec);
         EventContainer& operator=(const EventContainer& ec);
-        virtual ~EventContainer();
+        virtual ~EventContainer() = default;
         virtual void add(BaseEvent&) = 0;
         virtual EventIterator begin();
         virtual EventIterator end();
