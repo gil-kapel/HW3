@@ -2,66 +2,85 @@
 #define EVENT_CONTAINER_H_
 
 #include "date_wrap.h"
-#include "priority_queue.h"
 #include "base_event.h"
+
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
 using std::string;
-using mtm::PriorityQueue;
+using mtm::LinkedList;
+using mtm::BaseEvent;
+using mtm::EventContainer;
 
-namespace mtm{
-    class EventContainer{
-    protected:
-        PriorityQueue <int> membersList; 
-    public:
-        EventContainer::EventContainer(PriorityQueue <int> membersList): () {};//members_list = LinkedList<int>(); // we want empty queue so there is nothing inside 
-        EventContainer::EventContainer(const EventContainer& ec) {} // copy constructor
-        EventContainer& EventContainer::operator=(const EventContainer& ec){ //assignment operator
-            if (this == &ec){
-		        return *this;
-            }
-	    }
-        virtual ~EventContainer() {} //virtual d'tor for abstract parent function 
-        virtual void add(BaseEvent&) {
-           // mtm::PriorityQueue<int>::add(BaseEvent);//??
-            if(){ // choose condition for exception
-                throw NotSupported;// write exception
-            }
-            PriorityQueue::insert(ec);
-        }
-        virtual EventContainer::EventIterator begin() = 0 { // pure virtual function 
-        }
-        virtual EventContainer::EventIterator end() = 0 {  // pure virtual function , void or iter?
-           //return 
-        }
-        class EventIterator{
-            public:
-            EventIterator() {}
-            EventIterator(const EventIterator& it) {} //copy 
-            ~EventIterator() {}
-            EventIterator& operator=(const EventIterator& it){ // assignment operator
-                if(this == &ec){
-                    return *this;            
-                }
-            }
-            EventIterator& operator++(const EventIterator& iter){// ++ operator
-                ++iter; // is it right?
-                return *this;
-            }
-            BaseEvent* EventIterator::operator->(){//(const EventContainer& ec){
-                    return iter; // reference to BaseEvent
-            } 
-        };
-            bool EventContainer::EventIterator operator==(const EventIterator& it, const EventIterator& iter){
-                return it == iter; //
-            }
-            bool EventContainer::EventIterator operator !=(const EventIterator& iter1, const EventIterator& iter2)
-            {
-                return !(iter1 == iter2);
-            }
+
+EventContainer::EventContainer(): 
+    BaseEvent& (new_event){
+    events_list = LinkedList<int>();
+}
+
+EventContainer::EventIterator(): {
+   iter = 0();
+}
+
+EventContainer::EventContainer(const EventContainer& ec): 
+BaseEvent& (new_event) {
+    events_list = LinkedList<int>(new_event.events_list);
+}
+
+
+
+// namespace mtm{
+//     class EventContainer{
+//     protected:
+//         PriorityQueue <int> membersList; 
+//     public:
+//         EventContainer::EventContainer(PriorityQueue <int> membersList): () {};//members_list = LinkedList<int>(); // we want empty queue so there is nothing inside 
+//         EventContainer::EventContainer(const EventContainer& ec) {} // copy constructor
+//         EventContainer& EventContainer::operator=(const EventContainer& ec){ //assignment operator
+//             if (this == &ec){
+// 		        return *this;
+//             }
+// 	    }
+//         virtual ~EventContainer() {} //virtual d'tor for abstract parent function 
+//         virtual void add(BaseEvent&) {
+//            // mtm::PriorityQueue<int>::add(BaseEvent);//??
+//             if(){ // choose condition for exception
+//                 throw NotSupported;// write exception
+//             }
+//             PriorityQueue::insert(ec);
+//         }
+//         virtual EventContainer::EventIterator begin() = 0 { // pure virtual function 
+//         }
+//         virtual EventContainer::EventIterator end() = 0 {  // pure virtual function , void or iter?
+//            //return 
+//         }
+//         class EventIterator{
+//             public:
+//             EventIterator() {}
+//             EventIterator(const EventIterator& it) {} //copy 
+//             ~EventIterator() {}
+//             EventIterator& operator=(const EventIterator& it){ // assignment operator
+//                 if(this == &ec){
+//                     return *this;            
+//                 }
+//             }
+//             EventIterator& operator++(const EventIterator& iter){// ++ operator
+//                 ++iter; // is it right?
+//                 return *this;
+//             }
+//             BaseEvent* EventIterator::operator->(){//(const EventContainer& ec){
+//                     return iter; // reference to BaseEvent
+//             } 
+//         };
+//             bool EventContainer::EventIterator operator==(const EventIterator& it, const EventIterator& iter){
+//                 return it == iter; //
+//             }
+//             bool EventContainer::EventIterator operator !=(const EventIterator& iter1, const EventIterator& iter2)
+//             {
+//                 return !(iter1 == iter2);
+//             }
             
-    }
+//     }
  
 
 //     class Example {
