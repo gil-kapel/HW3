@@ -17,9 +17,10 @@ using std::endl;
 namespace mtm{
     class EventContainer{
     protected:
-        LinkedList<int> events_list; 
+        LinkedList<const BaseEvent&> events_list; 
     public:
         class EventIterator{
+        protected:
             BaseEvent* iter;
         public:
             EventIterator();
@@ -30,14 +31,16 @@ namespace mtm{
             BaseEvent& EventIterator::operator->();//????
             friend bool operator==(const EventIterator& it, const EventIterator& iter);
             friend bool operator!=(const EventIterator& it, const EventIterator& iter);
+            friend class schedule;
         };
-        EventContainer(BaseEvent& new_event);//(PriorityQueue <int> membersList);
+        EventContainer();//(BaseEvent& new_event);//(PriorityQueue <int> membersList);
         EventContainer(const EventContainer& ec);
         EventContainer& operator=(const EventContainer& ec);
         virtual ~EventContainer();
         virtual void add(BaseEvent&) = 0;
         virtual EventIterator begin();
         virtual EventIterator end();
+        friend class schedule;
         //LinkedList<int> getMembersList();
     };
 } //* End of mtm namespace*/
