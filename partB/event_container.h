@@ -20,16 +20,17 @@ namespace mtm{
         LinkedList<int> events_list; 
     public:
         class EventIterator{
-        BaseEvent* iter;
+        protected:
+            BaseEvent* iter;
         public:
-        EventIterator();
-        EventIterator(const EventIterator& it);
-        EventIterator& operator=(const EventIterator& it);
-        ~EventIterator();
-        EventIterator& operator++(const EventIterator& iter);
-        &BaseEvent EventIterator::operator->();//????
-        friend bool operator==(const EventIterator& it, const EventIterator& iter);
-        friend bool operator!=(const EventIterator& it, const EventIterator& iter);
+            EventIterator();
+            EventIterator(const EventIterator& it);
+            EventIterator& operator=(const EventIterator& it);
+            ~EventIterator();
+            EventIterator& operator++(const EventIterator& iter);
+            &BaseEvent EventIterator::operator->();//????
+            friend bool operator==(const EventIterator& it, const EventIterator& iter);
+            friend bool operator!=(const EventIterator& it, const EventIterator& iter);
         };
         EventContainer();//(PriorityQueue <int> membersList);
         EventContainer(const EventContainer& ec);
