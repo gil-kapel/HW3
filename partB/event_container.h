@@ -11,6 +11,7 @@
 using std::string;
 using mtm::DateWrap;
 using mtm::LinkedList;
+using mtm::BaseEvent;
 using std::endl;
 
 namespace mtm{
@@ -25,12 +26,12 @@ namespace mtm{
             EventIterator(const EventIterator& it);
             EventIterator& operator=(const EventIterator& it);
             ~EventIterator();
-            EventIterator& operator++(const EventIterator& iter);
-            &BaseEvent EventIterator::operator->();//????
+            EventIterator& operator++();
+            BaseEvent& EventIterator::operator->();//????
             friend bool operator==(const EventIterator& it, const EventIterator& iter);
             friend bool operator!=(const EventIterator& it, const EventIterator& iter);
         };
-        EventContainer();//(PriorityQueue <int> membersList);
+        EventContainer(BaseEvent& new_event);//(PriorityQueue <int> membersList);
         EventContainer(const EventContainer& ec);
         EventContainer& operator=(const EventContainer& ec);
         virtual ~EventContainer();
