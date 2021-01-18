@@ -48,7 +48,7 @@ namespace mtm{
 //     }
 
 
-// // mtm:festival festival(mtm::datewrap)
+ // mtm:festival festival(mtm::datewrap)
 
 
 #endif //FESTIVAL_H_
