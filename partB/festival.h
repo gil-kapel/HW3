@@ -19,8 +19,9 @@ using std::endl;
 
 namespace mtm{
     class Festival: public EventContainer{
+        DateWrap date;
     public:
-    Festival(DateWrap date);//<>
+    Festival(DateWrap new_date);//<>
     Festival(const Festival& festival);
     ~Festival(){}
     Festival& operator=(const Festival& festival);
@@ -33,22 +34,7 @@ namespace mtm{
 
 
 
-//         Festival::festival(DateWrap <int>date)  {} // we want empty queue so there is nothing inside 
-//     void Festival::add(const BaseEvent& added_event) override{ // add new event if not similar
-//         if(added_event.date != Festival.date){ // choose condition for exception
-//             throw DataMismatch;// write exception
-//         }
-//         LinkedList::insert(added_event);
-//     }
-//     void Festival::begin(const BaseEvent& first_event){
-//         return LinkedList::getFirst();
-//     }
-//     void Festival::end(const BaseEvent& last_event){
-//        return LinkedList::getNext(); // is it the one *after* the last event??
-//     }
-
-
- // mtm:festival festival(mtm::datewrap)
+// // mtm:festival festival(mtm::datewrap)
 
 
 #endif //FESTIVAL_H_
