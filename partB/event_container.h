@@ -10,6 +10,7 @@
 #include <iostream>
 using std::string;
 using mtm::DateWrap;
+using mtm::Node;
 using mtm::LinkedList;
 using mtm::BaseEvent;
 using std::endl;
@@ -21,28 +22,27 @@ namespace mtm{
     public:
         class EventIterator{
         protected:
-            Node* iter;
+            Node<BaseEvent*>* iterator;
         public:
-            EventIterator() = default;
+            EventIterator(Node<BaseEvent*>* event);
             EventIterator(const EventIterator& it);
             EventIterator& operator=(const EventIterator& it);
-            ~EventIterator(); //should be also virtual???
-            EventIterator& operator++();
+            ~EventIterator() = default;
+            EventIterator operator++();
             // BaseEvent& EventIterator::operator->();//????
-            BaseEvent& EventIterator::operator*();
-            friend bool operator==(const EventIterator& it, const EventIterator& iter);
-            friend bool operator!=(const EventIterator& it, const EventIterator& iter);
-            friend class schedule;
+            BaseEvent* EventIterator::operator*();
+            friend bool operator==(const EventIterator& it1, const EventIterator& it2);
+            friend bool operator!=(const EventIterator& it1, const EventIterator& it2);
+            friend class Schedule;
         };
-        EventContainer()= default;//(BaseEvent& new_event);//(PriorityQueue <int> membersList);
+        EventContainer()= default;
         EventContainer(const EventContainer& ec);
         EventContainer& operator=(const EventContainer& ec);
         virtual ~EventContainer() = default;
-        virtual void add(BaseEvent&) = 0;
-        virtual EventIterator begin();
-        virtual EventIterator end();
-        friend class schedule;
-        //LinkedList<int> getMembersList();
+        virtual void add(BaseEvent* event) = 0;
+        EventIterator begin();
+        EventIterator end();
+        friend class Schedule;
     };
 } //* End of mtm namespace*/
 

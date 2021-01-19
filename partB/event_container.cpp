@@ -1,13 +1,10 @@
 
-#include "date_wrap.h"
+#include "../partA/date_wrap.h"
 #include "base_event.h"
 #include "event_container.h"
 #include "../partA/exceptions.h"
-#include <stdlib.h>
-#include <string.h>
-#include <iostream>
 #include <string>
-
+#include <iostream>
 
 using std::cout;
 using std::cerr;
@@ -15,106 +12,81 @@ using std::cin;
 using std::endl;
 using std::ostream;
 using std::string;
+using mtm::Node;
 using mtm::LinkedList;
 using mtm::BaseEvent;
 using mtm::EventContainer;
 
 
-
-// EventContainer::EventContainer{}
-// //     BaseEvent (new_event){
-//     events_list = LinkedList<int>();
-// }
-
-// EventContainer::EventIterator{}
-//     BaseEvent& (new_event) {
-//     iter = 0();
-// }
 EventContainer::EventContainer(const EventContainer& ec): 
     events_list(ec.events_list) {
 }
+
 EventContainer& EventContainer::operator=(const EventContainer& ec)
 {
     if (this == &ec)
     {
-        return this*;
+        return *this;
     }
     events_list = ec.events_list;
-    return this*;
+    return *this;
 }
 
-// EventContainer::~EventContainer() {
-// 	//delete events_list;
-// }
-
-// EventContainer::EventIterator(){
-//     iter = new BaseEvent; ////////// add iter pointer
-//     iter = 0;
-// }
-
-
-EventContainer::EventIterator(const EventIterator& it):{
-    this->iter = new BaseEvent; // pointer
-    this->iter = it;
+EventContainer::EventIterator::EventIterator(Node<BaseEvent*>* event):
+    iterator(event){
 }
 
-EventContainer::EventIterator& operator=(const EventIterator& it){
+EventContainer::EventIterator::EventIterator(const EventIterator& it):
+    iterator(it.iterator) {
+}
+
+EventContainer::EventIterator& EventContainer::EventIterator::operator=(const EventIterator& it)
+{
     if (this == &it)
     {
-        return this*;
+        return *this;
     }
-    delete iter;
-    iter = new BaseEvent;
-    iter = it;
-    return this*;
+    iterator = it.iterator;
+    return *this;
 }
 
-EventIterator EventContainer::EventIterator::operator++(){
-    return events_list.getNext();
+EventContainer::EventIterator EventContainer::EventIterator::operator++(){
+    iterator = iterator->getNext();
+    return *this;
 }
 
-// BaseEvent& EventIterator::operator->(){
+BaseEvent* EventContainer::EventIterator::operator*(){
+    return iterator->getData();
 
-// }
-
-BaseEvent& EventContainer::EventIterator::operator*(){
-    return events_list.getData();
 }
 
-EventContainer::~EventIterator()
-{
-    delete iter;
+bool mtm::operator==(const EventContainer::EventIterator& it1, const EventContainer::EventIterator& it2){
+    return it1.iterator == it2.iterator;
 }
 
-bool EventContainer::EventIterator::operator==(const EventIterator& it, const EventIterator& iter){
-    return(it1 == it2)
+bool mtm::operator!=(const EventContainer::EventIterator& it1, const EventContainer::EventIterator& it2){
+    return(!(it1 == it2));
 }
 
-
-bool EventContainer::EventIterator:: operator!=(const EventIterator& it, const EventIterator& iter){
-    return(!(it1 == it2))
-}
-
-void EventContainer::add(const BaseEvent& event)
+void EventContainer::add(BaseEvent* event)
 {
     if(events_list.contains(event))
     {
-        throw mtm::Notsupported();
+        throw mtm::NotSupported();
     }
     events_list.insert(event);
-} 
-
-EventIterator EventContainer::begin()
-{
-    return events_lists
 }
 
-
-EventIterator EventContainer::end()
-
+EventContainer::EventIterator EventContainer::begin()
 {
-    //
+    EventIterator head(events_list.getFirst());
+    return head;
+}
 
+EventContainer::EventIterator EventContainer::end()
+{
+    EventIterator tail(0);
+    return tail;
 }
 
 
