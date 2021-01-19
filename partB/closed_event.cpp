@@ -14,36 +14,36 @@ using mtm::ClosedEvent;
 
 ClosedEvent::ClosedEvent(DateWrap new_date, string new_name):
     BaseEvent(new_date,new_name){
-    invetee_list = LinkedList<int>();
+    invetee_list = LinkedList<int*>();
 
 }
 
 ClosedEvent::ClosedEvent(const ClosedEvent& closed_event):
     BaseEvent(closed_event){
-    invetee_list = LinkedList<int>(closed_event.invetee_list);
+    invetee_list = LinkedList<int*>(closed_event.invetee_list);
 }
 
 ClosedEvent::~ClosedEvent(){}
 
 void ClosedEvent::addInvitee(int student)
 {
-    if(invetee_list.contains(student))
+    if(invetee_list.contains(&student))
     {
         throw mtm::AlreadyInvited();
     }
-    invetee_list.insert(student);
+    invetee_list.insert(&student);
 }
 
 void ClosedEvent::registerParticipant(int student)
 {
  
-    if(invetee_list.contains(student))
+    if(invetee_list.contains(&student))
     {
-        if(members_list.contains(student))
+        if(members_list.contains(&student))
         {
             throw mtm::AlreadyRegistered();
         }
-        members_list.insert(student);
+        members_list.insert(&student);
     }
     else throw mtm::RegistrationBlocked();
 }

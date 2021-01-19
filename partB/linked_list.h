@@ -36,7 +36,6 @@ namespace mtm
         void insertNodeToButtom(Node<Data>* position, Data data);
         void insert(Data data);
         bool contains(Data data);
-        Data get(int index) const;
         Node <Data>* getFirst() const;
         int  getSize() const;
         void removeHead();
@@ -77,7 +76,6 @@ namespace mtm
             this->next = new_next;
         }
     }
-
 
     template<class Data>
     LinkedList<Data>::LinkedList(): head(0), size(0){
@@ -142,7 +140,7 @@ namespace mtm
     template<class Data>
     void LinkedList<Data>::insert(Data data)
     {
-        if(!head || data > head->data) // The Node is empty or the new data is prior
+        if(!head || *data > *head->data) // The Node is empty or the new data is prior
         {
             insertNodeToHead(data);
             size++;
@@ -151,7 +149,7 @@ namespace mtm
         Node<Data>* position = head;
         while(position->next)
         {
-            if(data > position->next->data)
+            if(*data > *position->next->data)
             {
                 insertNodeToCurrentPosition(position, data);
                 size++;
@@ -166,27 +164,14 @@ namespace mtm
     bool LinkedList<Data>::contains(Data data)
     {
         Node<Data> *temp = head;
-        if(!data)
-            return false;
-        for( int i = 0; i < size; i++) {
-            if(data == (temp->data))
+        for(int i = 0; i < size; i++) {
+            if(*data == *temp->data)
             {
                 return true;
             }
             temp = temp->next;
         }
         return false;
-    }
-    template<class Data>
-    Data LinkedList<Data>::get(int index)const
-    {
-        Node<Data> *temp = head;
-        if(index >= size) return 0;
-        for(int i = 0; i < index; i++)
-        {
-            temp = temp->next;
-        }
-        return temp->data;
     }
     template<class Data>
     Node<Data>* LinkedList<Data>::getFirst() const
@@ -213,7 +198,7 @@ namespace mtm
     template<class Data>
     void LinkedList<Data>::remove(Data data)
     {
-        if(head->data == data)
+        if(*head->data == *data)
         {
             removeHead();
             return;
@@ -221,7 +206,7 @@ namespace mtm
         Node<Data> *temp = head;
         for(int i = 0; i < size - 1 ; i++)
         {
-            if(temp->next->data == data)
+            if(*temp->next->data == *data)
             {
                 Node<Data> *to_delete = temp->next;
                 temp->next = temp->next->next;

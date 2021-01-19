@@ -17,7 +17,7 @@ namespace mtm{
     protected:
         DateWrap date;
         string name;
-        LinkedList<int> members_list; 
+        LinkedList<int*> members_list; 
     public:
         BaseEvent(DateWrap new_date, string new_name);
         BaseEvent(const BaseEvent& base_event);
@@ -29,7 +29,7 @@ namespace mtm{
         virtual void unregisterParticipant(int student);
         virtual std::ostream& printShort(std::ostream& os);
         virtual std::ostream& printLong(std::ostream& os);
-        LinkedList<int> getMembersList();
+        LinkedList<int*> getMembersList();
         virtual BaseEvent* clone() const = 0;
 	    friend bool operator==(const BaseEvent& event1, const BaseEvent& event2);
         friend bool operator>(const BaseEvent& event1, const BaseEvent& event2);

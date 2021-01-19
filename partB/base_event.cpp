@@ -15,11 +15,11 @@ using mtm::BaseEvent;
 
 BaseEvent::BaseEvent(DateWrap new_date, string new_name):
     date(new_date), name(new_name){
-    members_list = LinkedList<int>();
+    members_list = LinkedList<int*>();
 }
 BaseEvent::BaseEvent(const BaseEvent& base_event):
     date(DateWrap(base_event.date)), name(string(base_event.name)){
-    members_list = LinkedList<int>(base_event.members_list);
+    members_list = LinkedList<int*>(base_event.members_list);
 }
 BaseEvent& BaseEvent::operator=(const BaseEvent& event) 
 {
@@ -42,19 +42,19 @@ string BaseEvent::getEventName()
 }
 void BaseEvent::registerParticipant(int student)
 {
-    if(members_list.contains(student))
+    if(members_list.contains(&student))
     {
         throw mtm::AlreadyRegistered();
     }
-    members_list.insert(student);
+    members_list.insert(&student);
 }
 void BaseEvent::unregisterParticipant(int student)
 {
-    if(!members_list.contains(student))
+    if(!(members_list.contains(&student)))
     {
         throw mtm::NotRegistered();
     }
-    members_list.remove(student);
+    members_list.remove(&student);
 }
 std::ostream& BaseEvent::printShort(std::ostream& os)
 {
@@ -64,7 +64,7 @@ std::ostream& BaseEvent::printLong(std::ostream& os)
 {
     return printShort(os) << endl << members_list << endl;
 }
-LinkedList<int> BaseEvent::getMembersList()
+LinkedList<int*> BaseEvent::getMembersList()
 {
     return members_list;
 }

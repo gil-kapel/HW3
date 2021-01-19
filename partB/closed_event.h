@@ -8,7 +8,7 @@ using mtm::LinkedList;
 
 namespace mtm{
     class ClosedEvent : public BaseEvent{
-        LinkedList<int> invetee_list;
+        LinkedList<int*> invetee_list;
     public:
         ClosedEvent(DateWrap new_date, string new_name);
         ~ClosedEvent();

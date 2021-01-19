@@ -7,7 +7,6 @@ using std::endl;
 using std::ostream;
 using std::string;
 using mtm::DateWrap;
-using mtm::LinkedList;
 using mtm::BaseEvent;
 using mtm::EventContainer;
 using mtm::Schedule;
@@ -38,20 +37,15 @@ void Schedule::addEvents(const EventContainer& event_container)
 void Schedule::registerToEvent(DateWrap event_date, string event_name, int student)
 {
     EventContainer::EventIterator iterator = event_manager->begin();
-    BaseEvent* event;
-    OpenEvent new_event(event_date,event_name);
-    event = new_event.clone();
     while(iterator.iter)
     {
-        if(iterator.iter == event)
+        if(iterator.iter->getEventDate() == event_date && iterator.iter->getEventName() == event_name)
         {
-            event->registerParticipant(student);
-            delete event;
+            iterator.iter->registerParticipant(student);
             return;
         }
         ++iterator;
     }
-    delete event;
     throw mtm::EventDoesNotExist();
 }
 
