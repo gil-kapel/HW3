@@ -26,11 +26,10 @@ namespace mtm{
     ~Festival(){}
     Festival& operator=(const Festival& festival);
     void add(const BaseEvent& new_event) override;// add new event if not similar
-    void begin();
-    void end();
+    // void begin();
+    // void end();
     }
 };
-
 
 
 
