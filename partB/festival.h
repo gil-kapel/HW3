@@ -19,7 +19,7 @@ using std::endl;
 
 namespace mtm{
     class Festival: public EventContainer{
-        DateWrap date;
+        Date date;
     public:
     Festival(DateWrap new_date);//<>
     Festival(const Festival& festival);
@@ -30,8 +30,6 @@ namespace mtm{
     // void end();
     }
 };
-
-
 
 // // mtm:festival festival(mtm::datewrap)
 
