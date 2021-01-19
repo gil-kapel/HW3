@@ -26,8 +26,32 @@ namespace mtm{
         void unregisterFromEvent(DateWrap event_date, string event_name, int student);
         void printAllEvents();
         void printMonthEvents(int month, int year);
-        void printSomeEvents(class predicate, bool verbose);
-        void printEventDetails(string event_name, Date event_date);
+        template <class predicate>
+        void printSomeEvents(bool predicate(const BaseEvent& event), bool verbose = false);
+        void printEventDetails(string event_name, DateWrap event_date);
     };
+
+    template <class predicate>
+    void Schedule::printSomeEvents(bool predicate(const BaseEvent& event), bool verbose)
+    {
+        EventContainer::EventIterator iterator = event_manager->begin();
+        while(iterator.iterator)
+        {
+            if(predicate(iterator.iterator->getData()->getEventDate()))
+            {
+                if(verbose)
+                {
+                    iterator.iterator->getData()->printLong(cout);
+                    return;
+                }
+                else
+                {
+                    iterator.iterator->getData()->printShort(cout);
+                    return;
+                }
+            }
+            ++iterator;
+        }
+    }
 }
 #endif // SCHEDULE_H_

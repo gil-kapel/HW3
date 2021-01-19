@@ -18,18 +18,18 @@ Schedule::~Schedule(){}
 void Schedule::addEvents(const EventContainer& event_container)
 {
     EventContainer::EventIterator iterator = event_manager->begin();
-    while(iterator.iter)
+    while(iterator.iterator)
     {
-        if(event_manager->events_list.contains(*iterator.iter))
+        if(event_manager->events_list.contains(iterator.iterator->getData()))
         {
             throw mtm::EventAlreadyExists();
         }
-         ++iterator.iter;
+         ++iterator.iterator;
     }
     iterator = event_manager->begin();
-    while(iterator.iter)
+    while(iterator.iterator)
     {
-        event_manager->add(*iterator.iter);
+        event_manager->add(iterator.iterator->getData());
         ++iterator;
     }
 }
@@ -37,11 +37,12 @@ void Schedule::addEvents(const EventContainer& event_container)
 void Schedule::registerToEvent(DateWrap event_date, string event_name, int student)
 {
     EventContainer::EventIterator iterator = event_manager->begin();
-    while(iterator.iter)
+    while(iterator.iterator)
     {
-        if(iterator.iter->getEventDate() == event_date && iterator.iter->getEventName() == event_name)
+        if(iterator.iterator->getData()->getEventDate() == event_date &&
+            iterator.iterator->getData()->getEventName() == event_name)
         {
-            iterator.iter->registerParticipant(student);
+            iterator.iterator->getData()->registerParticipant(student);
             return;
         }
         ++iterator;
@@ -52,11 +53,12 @@ void Schedule::registerToEvent(DateWrap event_date, string event_name, int stude
 void Schedule::unregisterFromEvent(DateWrap event_date, string event_name, int student)
 {
     EventContainer::EventIterator iterator = event_manager->begin();
-    while(iterator.iter)
+    while(iterator.iterator)
     {
-        if(iterator.iter->getEventDate() == event_date && iterator.iter->getEventName() == event_name)
+        if(iterator.iterator->getData()->getEventDate() == event_date &&
+           iterator.iterator->getData()->getEventName() == event_name)
         {
-            iterator.iter->unregisterParticipant(student);
+            iterator.iterator->getData()->unregisterParticipant(student);
             return;
         }
         ++iterator;
@@ -67,9 +69,9 @@ void Schedule::unregisterFromEvent(DateWrap event_date, string event_name, int s
 void Schedule::printAllEvents()
 {
     EventContainer::EventIterator iterator = event_manager->begin();
-    while(iterator.iter)
+    while(iterator.iterator)
     {
-        iterator.iter->printShort(cout);
+        iterator.iterator->getData()->printShort(cout);
         ++iterator;
     }
 }
@@ -79,26 +81,22 @@ void Schedule::printMonthEvents(int month, int year)
     DateWrap first_day(1,month,year);
     DateWrap last_day(30,month,year);
     EventContainer::EventIterator iterator = event_manager->begin();
-    while(iterator.iter->getEventDate() >= first_day && iterator.iter->getEventDate() <= last_day)
+    while(iterator.iterator->getData()->getEventDate() >= first_day && iterator.iterator->getData()->getEventDate() <= last_day)
     {
-        iterator.iter->printShort(cout);
+        iterator.iterator->getData()->printShort(cout);
         ++iterator;
     }
 }
 
-void Schedule::printSomeEvents(class predicate, bool verbose)
-{
-
-}
-
-void Schedule::printEventDetails(string event_name, Date event_date)
+void Schedule::printEventDetails(string event_name, DateWrap event_date)
 {
     EventContainer::EventIterator iterator = event_manager->begin();
-    while(iterator.iter)
+    while(iterator.iterator)
     {
-        if(iterator.iter->getEventDate() == event_date && iterator.iter->getEventName() == event_name)
+        if(iterator.iterator->getData()->getEventDate() == event_date &&
+           iterator.iterator->getData()->getEventName() == event_name)
         {
-            iterator.iter->printLong(cout);
+            iterator.iterator->getData()->printLong(cout);
             return;
         }
         ++iterator;
