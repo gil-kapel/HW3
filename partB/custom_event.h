@@ -27,8 +27,6 @@ namespace mtm{
     template<class CanRegister>
     void CustomEvent<CanRegister>::registerParticipant(int student)
     {
-        int max_student_number = 1234567890;
-        int min_student_number = 1;
         if(student < min_student_number || student > max_student_number)
         {
             throw mtm::InvalidStudent();

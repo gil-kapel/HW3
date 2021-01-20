@@ -27,8 +27,6 @@ ClosedEvent::~ClosedEvent(){}
 
 void ClosedEvent::addInvitee(int student)
 {
-    int max_student_number = 1234567890;
-    int min_student_number = 1;
     if(student < min_student_number || student > max_student_number)
     {
         throw mtm::InvalidStudent();
@@ -44,8 +42,6 @@ void ClosedEvent::addInvitee(int student)
 
 void ClosedEvent::registerParticipant(int student)
 {
-    int max_student_number = 1234567890;
-    int min_student_number = 1;
     if(student < min_student_number || student > max_student_number)
     {
         throw mtm::InvalidStudent();

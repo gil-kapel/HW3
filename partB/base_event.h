@@ -45,6 +45,8 @@ namespace mtm{
 
 } //* End of mtm namespace*/
 
+const int max_student_number = 1234567890;
+const int min_student_number = 1;
 
 #endif //BASE_EVENT_H_
 
