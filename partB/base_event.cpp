@@ -55,20 +55,36 @@ string BaseEvent::getEventName()
 
 void BaseEvent::registerParticipant(int student)
 {
-    if(members_list.contains(&student))
+    int max_student_number = 1234567890;
+    int min_student_number = 1;
+    if(student < min_student_number || student > max_student_number)
     {
+        throw mtm::InvalidStudent();
+    }
+    int* student_ptr = new int(student);
+    if(members_list.contains(student_ptr))
+    {
+        delete student_ptr;
         throw mtm::AlreadyRegistered();
     }
-    members_list.insert(&student);
+    members_list.insert(student_ptr);
 }
 
 void BaseEvent::unregisterParticipant(int student)
 {
-    if(!(members_list.contains(&student)))
+    int max_student_number = 1234567890;
+    int min_student_number = 1;
+    if(student < min_student_number || student > max_student_number)
     {
+        throw mtm::InvalidStudent();
+    }
+    int* student_ptr = new int(student);
+    if(!(members_list.contains(student_ptr)))
+    {
+        delete student_ptr;
         throw mtm::NotRegistered();
     }
-    members_list.remove(&student);
+    members_list.remove(student_ptr);
 }
 
 std::ostream& BaseEvent::printShort(std::ostream& os)

@@ -27,13 +27,21 @@ namespace mtm{
     template<class CanRegister>
     void CustomEvent<CanRegister>::registerParticipant(int student)
     {
-        if(condition(&student))
+        int max_student_number = 1234567890;
+        int min_student_number = 1;
+        if(student < min_student_number || student > max_student_number)
         {
-            if(members_list.contains(&student))
+            throw mtm::InvalidStudent();
+        }
+        int* student_ptr = new int(student);
+        if(condition(student))
+        {
+            if(members_list.contains(student_ptr))
             {
+                delete student_ptr;
                 throw mtm::AlreadyRegistered();
             }
-            this->members_list.insert(&student);
+            this->members_list.insert(student_ptr);
         }
         else throw mtm::RegistrationBlocked();
     }

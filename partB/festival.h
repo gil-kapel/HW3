@@ -10,7 +10,7 @@ namespace mtm{
     Festival(const Festival& festival);
     ~Festival(){}
     Festival& operator=(const Festival& festival);
-    void add(BaseEvent* event);// add new event if not similar
+    void add(const BaseEvent& event);// add new event if not similar
     // void begin();
     // void end();
     };

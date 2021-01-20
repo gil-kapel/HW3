@@ -4,14 +4,11 @@
 #include "../partA/date_wrap.h"
 #include "../partA/exceptions.h"
 #include "linked_list.h"
-#include <stdlib.h>
 #include <string>
 #include <iostream>
 using std::string;
-using std::endl;
-using std::cout;
-using std::ostream;
-using namespace mtm;
+using mtm::DateWrap;
+using mtm::LinkedList;
 
 namespace mtm{
     class BaseEvent{
@@ -36,7 +33,18 @@ namespace mtm{
         bool operator>(const BaseEvent& event) const;
         bool operator<(const BaseEvent& event) const;
     };
+    // int max_student_number = 1234567890;
+    // int min_student_number = 1;
+    // void is_student_valid(int student)
+    // {
+    //     if(student < min_student_number || student > max_student_number)
+    //     {
+    //         throw mtm::InvalidStudent();
+    //     }
+    // }
+
 } //* End of mtm namespace*/
 
 
 #endif //BASE_EVENT_H_
+

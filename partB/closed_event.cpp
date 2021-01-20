@@ -27,23 +27,37 @@ ClosedEvent::~ClosedEvent(){}
 
 void ClosedEvent::addInvitee(int student)
 {
-    if(invetee_list.contains(&student))
+    int max_student_number = 1234567890;
+    int min_student_number = 1;
+    if(student < min_student_number || student > max_student_number)
     {
+        throw mtm::InvalidStudent();
+    }
+    int* student_ptr = new int(student);
+    if(invetee_list.contains(student_ptr))
+    {
+        delete student_ptr;
         throw mtm::AlreadyInvited();
     }
-    invetee_list.insert(&student);
+    invetee_list.insert(student_ptr);
 }
 
 void ClosedEvent::registerParticipant(int student)
 {
- 
-    if(invetee_list.contains(&student))
+    int max_student_number = 1234567890;
+    int min_student_number = 1;
+    if(student < min_student_number || student > max_student_number)
     {
-        if(members_list.contains(&student))
+        throw mtm::InvalidStudent();
+    }
+    int* student_ptr = new int(student);
+    if(invetee_list.contains(student_ptr))
+    {
+        if(members_list.contains(student_ptr))
         {
             throw mtm::AlreadyRegistered();
         }
-        members_list.insert(&student);
+        members_list.insert(student_ptr);
     }
     else throw mtm::RegistrationBlocked();
 }

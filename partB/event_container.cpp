@@ -64,26 +64,27 @@ EventContainer::EventIterator EventContainer::EventIterator::operator++(){
     return *this;
 }
 
-BaseEvent* EventContainer::EventIterator::operator*(){
-    return iterator->getData();
-
+BaseEvent& EventContainer::EventIterator::operator*(){
+    BaseEvent* event = iterator->getData();
+    return *event;
 }
 
-bool mtm::operator==(const EventContainer::EventIterator& it1, const EventContainer::EventIterator& it2){
-    return it1.iterator == it2.iterator;
+bool EventContainer::EventIterator::operator==(const EventContainer::EventIterator& iter){
+    return iterator == iter.iterator;
 }
 
-bool mtm::operator!=(const EventContainer::EventIterator& it1, const EventContainer::EventIterator& it2){
-    return(!(it1 == it2));
+bool EventContainer::EventIterator::operator!=(const EventContainer::EventIterator& iter){
+    return(!(iterator == iter.iterator));
 }
 
-void EventContainer::add(BaseEvent* event)
+void EventContainer::add(const BaseEvent& event)
 {
-    if(events_list.contains(event))
+    BaseEvent* new_event = event.clone();
+    if(events_list.contains(new_event))
     {
         throw mtm::NotSupported();
     }
-    events_list.insert(event->clone());
+    events_list.insert(new_event);
 }
 
 EventContainer::EventIterator EventContainer::begin()

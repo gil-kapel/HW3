@@ -32,20 +32,26 @@ Festival& Festival::operator=(const Festival& festival)
     {
         return *this;
     }
-    events_list = festival.events_list;
+    for (Node<BaseEvent*>* iterator = festival.events_list.getFirst(); iterator == 0 ; iterator = iterator->getNext())
+    {
+        BaseEvent* event = iterator->getData()->clone();
+        events_list.insert(event);
+    }
     date = festival.date;
     return *this;
 }
 
-void Festival::add(BaseEvent* event)
+void Festival::add(const BaseEvent& event)
 {
-    if(events_list.contains(event))
+    BaseEvent* new_event = event.clone();
+    if(events_list.contains(new_event))
     {
         throw mtm::NotSupported();
     }
-    if(date != event->getEventDate())
+    if(date != new_event->getEventDate());
     {
         throw mtm::DateMismatch();
     }
-    events_list.insert(event->clone());
+    events_list.insert(new_event);
+
 }

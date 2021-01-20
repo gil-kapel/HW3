@@ -9,41 +9,44 @@ using mtm::LinkedList;
 using mtm::EventContainer;
 using mtm::BaseEvent;
 using mtm::DateWrap;
-using mtm::RecurringEvent;
 
 namespace mtm{
     template <class EventType>
     class RecurringEvent : public EventContainer{
-        EventType event;
-        string name;
-        int num_occurrences;
-        int interval_days;
-        Date first_date;
     public:
         RecurringEvent() = default;// we have another C'tor in the class, despite this we need this "default" C'tor 
-        RecurringEvent(EventType event, string name, int num_occurrences, int interval_days, Date first_date);
+        RecurringEvent(DateWrap first_date, string name, int num_occurrences, int interval_days);
         RecurringEvent(const RecurringEvent& recurring_event) = default;
         RecurringEvent& operator=(const RecurringEvent&) = default;
         ~RecurringEvent() = default;
-        void add(BaseEvent* new_event) override;
+        void add(const BaseEvent& event);
     };
 
     template<class EventType>
-    RecurringEvent<EventType>::RecurringEvent(EventType event, string name, int num_occurrences, int interval_days, Date first_date): 
-        event(event), name(name), num_occurrences(num_occurrences), interval_days(interval_days), first_date(first_date) {
-    if (num_occurrences < 1){
-        throw mtm::InvalidNumber();
-    }
-    if (interval_days < 1){
-        throw mtm::InvalidDate();
-    }
-    event = EventType(event)//
+    RecurringEvent<EventType>::RecurringEvent(DateWrap first_date, string name, int num_occurrences, int interval_days)
+    {
+        if (num_occurrences < 1)
+        {
+            throw mtm::InvalidNumber();
+        }
+        if (interval_days < 1)
+        {
+            throw mtm::InvalidInterval();
+        }
+        for(int counter = 0 ; counter < num_occurrences ; counter++)
+        {
+            EventType event((first_date + (counter * interval_days)) , name);
+            BaseEvent* new_event = event.clone();
+            events_list.insert(new_event);
+        }
     }
 
     template<class EventType>
-    void RecurringEvent<EventType>::add(BaseEvent* new_event){
+    void RecurringEvent<EventType>::add(const BaseEvent& event){
+        BaseEvent* new_event = event.clone();
         if(events_list.contains(new_event))
         {
+            delete new_event;
             throw mtm::NotSupported();
         }
         events_list.insert(new_event);
