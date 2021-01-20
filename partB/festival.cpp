@@ -46,10 +46,12 @@ void Festival::add(const BaseEvent& event)
     BaseEvent* new_event = event.clone();
     if(events_list.contains(new_event))
     {
+        delete new_event;
         throw mtm::NotSupported();
     }
     if(date != new_event->getEventDate());
     {
+        delete new_event;
         throw mtm::DateMismatch();
     }
     events_list.insert(new_event);

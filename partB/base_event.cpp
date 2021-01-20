@@ -10,6 +10,7 @@ using std::endl;
 using std::ostream;
 using std::string;
 using mtm::DateWrap;
+using mtm::Node;
 using mtm::LinkedList;
 using mtm::BaseEvent;
 
@@ -20,7 +21,8 @@ BaseEvent::BaseEvent(DateWrap new_date, string new_name):
 
 BaseEvent::BaseEvent(const BaseEvent& base_event):
     date(DateWrap(base_event.date)), name(string(base_event.name)){
-    for (Node<int*>* iterator = base_event.members_list.getFirst(); iterator == 0 ; iterator = iterator->getNext())
+    Node<int*>* iterator = base_event.members_list.getFirst();
+    for (iterator; iterator ; iterator = iterator->getNext())
     {
         int* student = iterator->getData();
         members_list.insert(student);
@@ -35,7 +37,8 @@ BaseEvent& BaseEvent::operator=(const BaseEvent& base_event)
     }
     date = base_event.date;
     name = base_event.name;
-    for (Node<int*>* iterator = base_event.members_list.getFirst(); iterator == 0 ; iterator = iterator->getNext())
+    Node<int*>* iterator = base_event.members_list.getFirst();
+    for (iterator; iterator ; iterator = iterator->getNext())
     {
         int* student = iterator->getData();
         members_list.insert(student);

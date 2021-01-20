@@ -1,4 +1,5 @@
 #include "open_event.h"
+
 using std::cout;
 using std::cerr;
 using std::cin;
@@ -12,9 +13,10 @@ using mtm::BaseEvent;
 using mtm::OpenEvent;
 
 OpenEvent::OpenEvent(DateWrap new_date, string new_name):
-    BaseEvent(new_date,new_name){;}
+    BaseEvent(new_date,new_name){
+}
 
 BaseEvent* OpenEvent::clone() const{
-    return new OpenEvent(*this);
+    BaseEvent* new_event = new OpenEvent(*this);
+    return new_event;
 }
-//

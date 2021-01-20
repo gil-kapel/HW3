@@ -59,5 +59,5 @@ void ClosedEvent::registerParticipant(int student)
 }
 
 BaseEvent* ClosedEvent::clone() const{
-    return new ClosedEvent(*this);
-}
+    BaseEvent* new_event = new ClosedEvent(*this);
+    return new_event;}
