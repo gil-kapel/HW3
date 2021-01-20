@@ -19,3 +19,4 @@ OpenEvent::OpenEvent(DateWrap new_date, string new_name):
 BaseEvent* OpenEvent::clone() const{
     return new OpenEvent(*this);
 }
+//
