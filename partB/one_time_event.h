@@ -26,22 +26,18 @@ namespace mtm{
         ~OneTimeEvent() = default;
         void add(const BaseEvent* new_event) override;
     };
-
     template<class EventType>
     OneTimeEvent<EventType>::OneTimeEvent(EventType event, Date date, string name):
         event(event), name(name), date(date){
             event = EventType(event)
         }
-    
-    template<claa EventType>
-    void OneTimeEvent<EventType>::add(BaseEvent* new_event){
-        if(event_list.contains(new_event)){
-            throw NotSupported;
+    template<class EventType>
+    void OneTimeEvent<EventType>::add(const BaseEvent* new_event){
+        if(!event_list.getFirst()){
+            throw mtm::NotSupported;
         }
         events_list.insert(new_event)
     }
-    
-
-};
+}
 
 #endif //ONE_TIME_EVENT_
