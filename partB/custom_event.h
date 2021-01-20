@@ -2,9 +2,6 @@
 #define CUSTOM_EVENT_H_
 
 #include "base_event.h"
-using std::string;
-using mtm::BaseEvent;
-using mtm::LinkedList;
 
 namespace mtm{
     template<class CanRegister>
@@ -30,13 +27,13 @@ namespace mtm{
     template<class CanRegister>
     void CustomEvent<CanRegister>::registerParticipant(int student)
     {
-        if(condition(student))
+        if(condition(&student))
         {
-            if(members_list.contains(student))
+            if(members_list.contains(&student))
             {
                 throw mtm::AlreadyRegistered();
             }
-            this->members_list.insert(student);
+            this->members_list.insert(&student);
         }
         else throw mtm::RegistrationBlocked();
     }

@@ -18,8 +18,13 @@ using mtm::BaseEvent;
 using mtm::EventContainer;
 
 
-EventContainer::EventContainer(const EventContainer& ec): 
-    events_list(ec.events_list) {
+EventContainer::EventContainer(const EventContainer& ec)
+{
+    for (Node<BaseEvent*>* iterator = ec.events_list.getFirst(); iterator == 0 ; iterator = iterator->getNext())
+    {
+        BaseEvent* event = iterator->getData()->clone();
+        events_list.insert(event);
+    }
 }
 
 EventContainer& EventContainer::operator=(const EventContainer& ec)
@@ -28,7 +33,11 @@ EventContainer& EventContainer::operator=(const EventContainer& ec)
     {
         return *this;
     }
-    events_list = ec.events_list;
+    for (Node<BaseEvent*>* iterator = ec.events_list.getFirst(); iterator == 0 ; iterator = iterator->getNext())
+    {
+        BaseEvent* event = iterator->getData()->clone();
+        events_list.insert(event);
+    }
     return *this;
 }
 
@@ -74,7 +83,7 @@ void EventContainer::add(BaseEvent* event)
     {
         throw mtm::NotSupported();
     }
-    events_list.insert(event);
+    events_list.insert(event->clone());
 }
 
 EventContainer::EventIterator EventContainer::begin()

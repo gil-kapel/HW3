@@ -8,9 +8,10 @@
 #include <string>
 #include <iostream>
 using std::string;
-using mtm::DateWrap;
-using mtm::LinkedList;
 using std::endl;
+using std::cout;
+using std::ostream;
+using namespace mtm;
 
 namespace mtm{
     class BaseEvent{
@@ -31,11 +32,10 @@ namespace mtm{
         virtual std::ostream& printLong(std::ostream& os);
         LinkedList<int*> getMembersList();
         virtual BaseEvent* clone() const = 0;
-	    friend bool operator==(const BaseEvent& event1, const BaseEvent& event2);
-        friend bool operator>(const BaseEvent& event1, const BaseEvent& event2);
-        friend bool operator<(const BaseEvent& event1, const BaseEvent& event2);
+	    bool operator==(const BaseEvent& event) const;
+        bool operator>(const BaseEvent& event) const;
+        bool operator<(const BaseEvent& event) const;
     };
-
 } //* End of mtm namespace*/
 
 

@@ -27,17 +27,17 @@ namespace mtm{
         void printAllEvents();
         void printMonthEvents(int month, int year);
         template <class predicate>
-        void printSomeEvents(bool predicate(const BaseEvent& event), bool verbose = false);
+        void printSomeEvents(predicate predicate_function, bool verbose = false);
         void printEventDetails(string event_name, DateWrap event_date);
     };
 
     template <class predicate>
-    void Schedule::printSomeEvents(bool predicate(const BaseEvent& event), bool verbose)
+    void Schedule::printSomeEvents(predicate predicate_function, bool verbose)
     {
         EventContainer::EventIterator iterator = event_manager->begin();
         while(iterator.iterator)
         {
-            if(predicate(iterator.iterator->getData()->getEventDate()))
+            if(predicate_function(iterator.iterator->getData()->getEventDate()))
             {
                 if(verbose)
                 {

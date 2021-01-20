@@ -2,9 +2,6 @@
 #define CLOSED_EVENT_H_
 
 #include "base_event.h"
-using std::string;
-using mtm::BaseEvent;
-using mtm::LinkedList;
 
 namespace mtm{
     class ClosedEvent : public BaseEvent{

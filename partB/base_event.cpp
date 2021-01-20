@@ -17,29 +17,42 @@ BaseEvent::BaseEvent(DateWrap new_date, string new_name):
     date(new_date), name(new_name){
     members_list = LinkedList<int*>();
 }
+
 BaseEvent::BaseEvent(const BaseEvent& base_event):
     date(DateWrap(base_event.date)), name(string(base_event.name)){
-    members_list = LinkedList<int*>(base_event.members_list);
+    for (Node<int*>* iterator = base_event.members_list.getFirst(); iterator == 0 ; iterator = iterator->getNext())
+    {
+        int* student = iterator->getData();
+        members_list.insert(student);
+    }
 }
-BaseEvent& BaseEvent::operator=(const BaseEvent& event) 
+
+BaseEvent& BaseEvent::operator=(const BaseEvent& base_event) 
 {
-    if(this == &event)
+    if(this == &base_event)
     {
         return *this;
     }
-    date = event.date;
-    name = event.name;
-    members_list = event.members_list;
+    date = base_event.date;
+    name = base_event.name;
+    for (Node<int*>* iterator = base_event.members_list.getFirst(); iterator == 0 ; iterator = iterator->getNext())
+    {
+        int* student = iterator->getData();
+        members_list.insert(student);
+    }
     return *this;
 }
+
 DateWrap BaseEvent::getEventDate()
 {
     return date;
 }
+
 string BaseEvent::getEventName()
 {
     return name;
 }
+
 void BaseEvent::registerParticipant(int student)
 {
     if(members_list.contains(&student))
@@ -48,6 +61,7 @@ void BaseEvent::registerParticipant(int student)
     }
     members_list.insert(&student);
 }
+
 void BaseEvent::unregisterParticipant(int student)
 {
     if(!(members_list.contains(&student)))
@@ -56,43 +70,42 @@ void BaseEvent::unregisterParticipant(int student)
     }
     members_list.remove(&student);
 }
+
 std::ostream& BaseEvent::printShort(std::ostream& os)
 {
     return os << name << " " << date << endl;
 }
+
 std::ostream& BaseEvent::printLong(std::ostream& os)
 {
     return printShort(os) << endl << members_list << endl;
 }
+
 LinkedList<int*> BaseEvent::getMembersList()
 {
     return members_list;
 }
-bool mtm::operator==(const BaseEvent& event1, const BaseEvent& event2)
+
+bool BaseEvent::operator==(const BaseEvent& event) const
 {
-    if(event1.date == event2.date)
+    return (this->date == event.date) && (this->name == event.name);
+}
+
+bool BaseEvent::operator>(const BaseEvent& event) const
+{
+    if(this->date > event.date)
     {
         return true;
     }
-    else return false;
-}
-bool mtm::operator>(const BaseEvent& event1, const BaseEvent& event2)
-{
-    if(event1.date > event2.date)
+    else if(this->date == event.date)
     {
-        return true;
+        return (this->name > event.name);
     }
-    else if(event1.date == event2.date)
-    {
-        if(event1.name.compare(event2.name) > 0)
-        {
-            return true;
-        }
-    }
-    return false;
+    return false;    
 }
-bool mtm::operator<(const BaseEvent& event1, const BaseEvent& event2)
+
+bool BaseEvent::operator<(const BaseEvent& event) const
 {
-    return (!(event1 > event2) && !(event1==event2));
+   return event > *this;
 }
 

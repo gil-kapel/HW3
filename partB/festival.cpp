@@ -1,6 +1,6 @@
-#include "date_wrap.h"
+#include "../partA/date_wrap.h"
 #include "event_container.h"
-#include "event_base.h"
+#include "base_event.h"
 #include "festival.h"
 #include "../partA/exceptions.h"
 
@@ -19,35 +19,33 @@ using mtm::LinkedList;
 using mtm::BaseEvent;
 using mtm::Festival;
 
-Festival(DateWrap date):
-festival.date = date{
-
+Festival::Festival(DateWrap date): date(date){
 }
 
-void Festival::add(const BaseEvent& event)
+Festival::Festival(const Festival& festival): 
+    date(DateWrap(festival.date)) {
+}
+
+Festival& Festival::operator=(const Festival& festival)
+{
+    if (this == &festival)
+    {
+        return *this;
+    }
+    events_list = festival.events_list;
+    date = festival.date;
+    return *this;
+}
+
+void Festival::add(BaseEvent* event)
 {
     if(events_list.contains(event))
     {
+        throw mtm::NotSupported();
+    }
+    if(date != event->getEventDate())
+    {
         throw mtm::DateMismatch();
     }
-    events_list.insert(event);
-} 
-
-
-        Festival::festival(DateWrap <int>date)  {} // we want empty queue so there is nothing inside 
-    void Festival::add(const BaseEvent& added_event) override{ // add new event if not similar
-        if(added_event.date != Festival.date){ // choose condition for exception
-            throw DataMismatch;// write exception
-        }
-        LinkedList::insert(added_event);
-    }
-    void Festival::begin(const BaseEvent& first_event){
-        return LinkedList::getFirst();
-    }
-    void Festival::end(const BaseEvent& last_event){
-       return LinkedList::getNext(); // is it the one *after* the last event??
-    }
-
-
-
-
+    events_list.insert(event->clone());
+}

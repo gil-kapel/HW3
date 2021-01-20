@@ -2,9 +2,6 @@
 #define OPEN_EVENT_H_
 
 #include "base_event.h"
-using std::string;
-using mtm::BaseEvent;
-using mtm::LinkedList;
 
 namespace mtm{
     class OpenEvent : public BaseEvent{
@@ -15,4 +12,4 @@ namespace mtm{
     };
 } //* End of mtm namespace*/
 
-#endif //OPEN_EVENT_H_
+#endif //OPEN_EVENT_H

@@ -86,7 +86,7 @@ void Schedule::printMonthEvents(int month, int year)
         iterator.iterator->getData()->printShort(cout);
         ++iterator;
     }
-}
+} 
 
 void Schedule::printEventDetails(string event_name, DateWrap event_date)
 {

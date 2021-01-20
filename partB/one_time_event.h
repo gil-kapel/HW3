@@ -3,12 +3,6 @@
 
 #include "event_container.h"
 
-using std::string;
-using mtm::LinkedList;
-using mtm::EventContainer;
-using mtm::DateWrap;
-
-
 namespace mtm{
     template<class EventType>
     class OneTimeEvent : public EventContainer{
