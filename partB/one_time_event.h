@@ -18,6 +18,7 @@ namespace mtm{
         OneTimeEvent(DateWrap date, string name);
         void add(const BaseEvent& event);
     };
+
     template<class EventType>
     OneTimeEvent<EventType>::OneTimeEvent(DateWrap date, string name)
     {
@@ -26,14 +27,9 @@ namespace mtm{
         events_list.insert(new_event);
     }
     template<class EventType>
-    void OneTimeEvent<EventType>::add(const BaseEvent& event){
-        BaseEvent* new_event = event.clone();
-        if(!events_list.getFirst())
-        {
-            delete new_event;
-            throw mtm::NotSupported();
-        }
-        events_list.insert(new_event);
+    void OneTimeEvent<EventType>::add(const BaseEvent& event)
+    {
+        throw mtm::NotSupported();
     }
 }
 
