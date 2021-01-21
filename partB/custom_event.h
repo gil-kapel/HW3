@@ -46,7 +46,14 @@ namespace mtm{
     template<class CanRegister>
     BaseEvent* CustomEvent<CanRegister>::clone() const
     {
-        return new CustomEvent(*this);
+        BaseEvent* new_event = new CustomEvent(*this);
+        Node<int*>* iterator = this->members_list.getFirst();
+        for (iterator; iterator ; iterator = iterator->getNext())
+        {
+            int* student = new int(*iterator->getData());
+            new_event->getMembersList().insert(student);
+        }
+        return new_event;
     }
 
 } //* End of mtm namespace*/

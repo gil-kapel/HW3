@@ -49,7 +49,7 @@ void Festival::add(const BaseEvent& event)
         delete new_event;
         throw mtm::NotSupported();
     }
-    if(date != new_event->getEventDate());
+    if(date != new_event->getEventDate())
     {
         delete new_event;
         throw mtm::DateMismatch();

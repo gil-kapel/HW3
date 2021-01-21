@@ -32,16 +32,10 @@ namespace mtm{
 	    bool operator==(const BaseEvent& event) const;
         bool operator>(const BaseEvent& event) const;
         bool operator<(const BaseEvent& event) const;
+        friend class OpenEvent;
+        friend class ClosedEvent;
+
     };
-    // int max_student_number = 1234567890;
-    // int min_student_number = 1;
-    // void is_student_valid(int student)
-    // {
-    //     if(student < min_student_number || student > max_student_number)
-    //     {
-    //         throw mtm::InvalidStudent();
-    //     }
-    // }
 
 } //* End of mtm namespace*/
 
