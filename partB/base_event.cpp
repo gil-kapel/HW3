@@ -48,7 +48,7 @@ BaseEvent& BaseEvent::operator=(const BaseEvent& base_event)
 
 DateWrap BaseEvent::getEventDate()
 {
-    return date; ////////////////////////////////////////////////////////////////////brings a copy of the date - not good?
+    return date; 
 }
 
 string BaseEvent::getEventName()

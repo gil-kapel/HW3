@@ -42,14 +42,9 @@ namespace mtm{
     }
 
     template<class EventType>
-    void RecurringEvent<EventType>::add(const BaseEvent& event){
-        BaseEvent* new_event = event.clone();
-        if(events_list.contains(new_event))
-        {
-            delete new_event;
-            throw mtm::NotSupported();
-        }
-        events_list.insert(new_event);
+    void RecurringEvent<EventType>::add(const BaseEvent& event)
+    {
+        throw mtm::NotSupported();
     }
 
 }

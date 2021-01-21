@@ -11,7 +11,7 @@ namespace mtm{
         protected:
             Node<BaseEvent*>* iterator;
         public:
-            explicit EventIterator(Node<BaseEvent*>* event);
+            explicit EventIterator(Node<BaseEvent*>* event = nullptr);
             EventIterator(const EventIterator& it);
             EventIterator& operator=(const EventIterator& it);
             ~EventIterator() = default;

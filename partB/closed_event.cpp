@@ -20,10 +20,11 @@ ClosedEvent::ClosedEvent(DateWrap new_date, string new_name):
 
 ClosedEvent::ClosedEvent(const ClosedEvent& closed_event):
     BaseEvent(closed_event){
-        Node<int*>* iterator = this->members_list.getFirst();
+        Node<int*>* iterator = closed_event.invetee_list.getFirst();
         for (; iterator ; iterator = iterator->getNext())
         {
-            insertStudentToList(*iterator->getData());
+            int* student_ptr = new int(*iterator->getData());
+            invetee_list.insert(student_ptr);
         }
     }
 
@@ -74,5 +75,6 @@ BaseEvent* ClosedEvent::clone() const{
     {
         new_event->insertStudentToList(*iterator->getData());
     }
+
     return new_event;
 }

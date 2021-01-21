@@ -7,7 +7,7 @@ namespace mtm{
     class OpenEvent : public BaseEvent{
     public:
         OpenEvent(DateWrap new_date, string new_name);
-        ~OpenEvent(){}
+        ~OpenEvent() = default;
         BaseEvent* clone() const;
     };
 } //* End of mtm namespace*/

@@ -41,7 +41,11 @@ namespace mtm{
             }
             members_list.insert(student_ptr);
         }
-        else throw mtm::RegistrationBlocked();
+        else
+        {
+            delete student_ptr;
+            throw mtm::RegistrationBlocked();
+        }
     }
     template<class CanRegister>
     BaseEvent* CustomEvent<CanRegister>::clone() const

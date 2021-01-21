@@ -211,6 +211,7 @@ namespace mtm
             if(*temp->next->data == *data)
             {
                 Node<Data> *to_delete = temp->next;
+                delete to_delete->data;
                 temp->next = temp->next->next;
                 delete data;
                 delete to_delete;
