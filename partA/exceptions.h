@@ -14,7 +14,7 @@ namespace mtm{
 
     class NotRegistered : public Exception{};
     
-    class InvalidMember : public Exception{};
+    class InvalidStudent : public Exception{};
     
     class FullList : public Exception{};
     
@@ -30,9 +30,13 @@ namespace mtm{
 
     class InvalidNumber : public Exception{};
 
+    class InvalidInterval : public Exception{};
+
     class EventAlreadyExists : public Exception{};
 
     class EventDoesNotExist : public Exception{};
+
+
 
 } //* End of mtm namespace */
 

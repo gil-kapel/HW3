@@ -140,7 +140,7 @@ namespace mtm
     template<class Data>
     void LinkedList<Data>::insert(Data data)
     {
-        if(!head || *data > *head->data) // The Node is empty or the new data is prior
+        if(!head || *data < *head->data) // The Node is empty or the new data is prior
         {
             insertNodeToHead(data);
             size++;
@@ -149,7 +149,7 @@ namespace mtm
         Node<Data>* position = head;
         while(position->next)
         {
-            if(*data > *position->next->data)
+            if(*data < *position->next->data)
             {
                 insertNodeToCurrentPosition(position, data);
                 size++;
@@ -192,6 +192,7 @@ namespace mtm
         }
         Node<Data>* to_delete = head;
         head = head->next;
+        delete to_delete->data;
         delete to_delete;
         size--;
     }
@@ -200,6 +201,7 @@ namespace mtm
     {
         if(*head->data == *data)
         {
+            delete data;
             removeHead();
             return;
         }
@@ -210,6 +212,7 @@ namespace mtm
             {
                 Node<Data> *to_delete = temp->next;
                 temp->next = temp->next->next;
+                delete data;
                 delete to_delete;
                 size--;
                 return;
@@ -223,7 +226,7 @@ namespace mtm
         Node<Data>* temp = linked.getFirst(); 
         for(int i = 0; i < linked.getSize(); i++)
         {
-            os << temp->getData() << endl;
+            os << *temp->getData() << endl;
             temp = temp->getNext();
         }
         return os;

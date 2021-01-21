@@ -22,7 +22,7 @@ BaseEvent::BaseEvent(DateWrap new_date, string new_name):
 BaseEvent::BaseEvent(const BaseEvent& base_event):
     date(DateWrap(base_event.date)), name(string(base_event.name)){
     Node<int*>* iterator = this->members_list.getFirst();
-    for (iterator; iterator ; iterator = iterator->getNext())
+    for (; iterator ; iterator = iterator->getNext())
     {
         int* student = new int(*iterator->getData());
         members_list.insert(student);
@@ -38,7 +38,7 @@ BaseEvent& BaseEvent::operator=(const BaseEvent& base_event)
     date = base_event.date;
     name = base_event.name;
     Node<int*>* iterator = this->members_list.getFirst();
-    for (iterator; iterator ; iterator = iterator->getNext())
+    for (; iterator ; iterator = iterator->getNext())
     {
         int* student = new int(*iterator->getData());
         members_list.insert(student);
@@ -93,12 +93,13 @@ std::ostream& BaseEvent::printShort(std::ostream& os)
 
 std::ostream& BaseEvent::printLong(std::ostream& os)
 {
-    return printShort(os) << endl << members_list << endl;
+    return printShort(os) << members_list;
 }
 
-LinkedList<int*> BaseEvent::getMembersList()
+void BaseEvent::insertStudentToList(int student)
 {
-    return members_list;
+    int* student_ptr = new int(student);
+    members_list.insert(student_ptr);
 }
 
 bool BaseEvent::operator==(const BaseEvent& event) const

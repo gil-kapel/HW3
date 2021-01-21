@@ -27,7 +27,7 @@ namespace mtm{
         virtual void unregisterParticipant(int student);
         virtual std::ostream& printShort(std::ostream& os);
         virtual std::ostream& printLong(std::ostream& os);
-        LinkedList<int*> getMembersList();
+        void insertStudentToList(int student);
         virtual BaseEvent* clone() const = 0;
 	    bool operator==(const BaseEvent& event) const;
         bool operator>(const BaseEvent& event) const;

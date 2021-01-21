@@ -39,7 +39,7 @@ namespace mtm{
                 delete student_ptr;
                 throw mtm::AlreadyRegistered();
             }
-            this->members_list.insert(student_ptr);
+            members_list.insert(student_ptr);
         }
         else throw mtm::RegistrationBlocked();
     }
@@ -48,10 +48,9 @@ namespace mtm{
     {
         BaseEvent* new_event = new CustomEvent(*this);
         Node<int*>* iterator = this->members_list.getFirst();
-        for (iterator; iterator ; iterator = iterator->getNext())
+        for (; iterator ; iterator = iterator->getNext())
         {
-            int* student = new int(*iterator->getData());
-            new_event->getMembersList().insert(student);
+            new_event->insertStudentToList(*iterator->getData());
         }
         return new_event;
     }

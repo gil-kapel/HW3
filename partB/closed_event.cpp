@@ -21,10 +21,9 @@ ClosedEvent::ClosedEvent(DateWrap new_date, string new_name):
 ClosedEvent::ClosedEvent(const ClosedEvent& closed_event):
     BaseEvent(closed_event){
         Node<int*>* iterator = this->members_list.getFirst();
-        for (iterator; iterator ; iterator = iterator->getNext())
+        for (; iterator ; iterator = iterator->getNext())
         {
-            int* student = new int(*iterator->getData());
-            members_list.insert(student);
+            insertStudentToList(*iterator->getData());
         }
     }
 
@@ -56,20 +55,24 @@ void ClosedEvent::registerParticipant(int student)
     {
         if(members_list.contains(student_ptr))
         {
+            delete student_ptr;
             throw mtm::AlreadyRegistered();
         }
         members_list.insert(student_ptr);
     }
-    else throw mtm::RegistrationBlocked();
+    else
+    {
+        delete student_ptr;
+        throw mtm::RegistrationBlocked();
+    } 
 }
 
 BaseEvent* ClosedEvent::clone() const{
     BaseEvent* new_event = new ClosedEvent(*this);
     Node<int*>* iterator = this->members_list.getFirst();
-    for (iterator; iterator ; iterator = iterator->getNext())
+    for (; iterator ; iterator = iterator->getNext())
     {
-        int* student = new int(*iterator->getData());
-        new_event->members_list.insert(student);
+        new_event->insertStudentToList(*iterator->getData());
     }
     return new_event;
 }
