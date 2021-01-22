@@ -4,30 +4,23 @@
 #include "event_container.h"
 #include "base_event.h"
 
-using std::string;
-using mtm::LinkedList;
-using mtm::EventContainer;
-using mtm::BaseEvent;
-using mtm::DateWrap;
-
-
 namespace mtm{
     template<class EventType>
-    class OneTimeEvent : public EventContainer{
+    class OneTimeEvent : public mtm::EventContainer{
     public:
-        OneTimeEvent(DateWrap date, string name);
-        void add(const BaseEvent& event);
+        OneTimeEvent(mtm::DateWrap date, std::string name);
+        void add(const mtm::BaseEvent& event);
     };
 
     template<class EventType>
-    OneTimeEvent<EventType>::OneTimeEvent(DateWrap date, string name)
+    OneTimeEvent<EventType>::OneTimeEvent(mtm::DateWrap date, std::string name)
     {
         EventType event(date, name);
-        BaseEvent* new_event = event.clone();
+        mtm::BaseEvent* new_event = event.clone();
         events_list.insert(new_event);
     }
     template<class EventType>
-    void OneTimeEvent<EventType>::add(const BaseEvent& event)
+    void OneTimeEvent<EventType>::add(const mtm::BaseEvent& event)
     {
         throw mtm::NotSupported();
     }

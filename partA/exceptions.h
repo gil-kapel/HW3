@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <exception>
-using std::exception;
 
 namespace mtm{
     class Exception : public std::exception{};
@@ -35,8 +34,6 @@ namespace mtm{
     class EventAlreadyExists : public Exception{};
 
     class EventDoesNotExist : public Exception{};
-
-
 
 } //* End of mtm namespace */
 

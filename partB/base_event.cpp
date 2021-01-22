@@ -1,11 +1,5 @@
 #include "base_event.h"
-#include "../partA/exceptions.h"
-#include <iostream>
-#include <string>
 
-using std::cout;
-using std::cerr;
-using std::cin;
 using std::endl;
 using std::ostream;
 using std::string;

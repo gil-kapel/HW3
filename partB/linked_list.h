@@ -2,8 +2,6 @@
 #define LINKED_LIST_H_
 
 #include <iostream>
-using std::endl;
-using std::ostream;
 
 namespace mtm
 {
@@ -15,8 +13,8 @@ namespace mtm
         Node *next;
         Data data;
     public:
-        Node(): data(0), next(0){}
-        Node(Data data = 0, Node* next = 0);
+        Node(): data(0), next(nullptr){}
+        Node(Data data = 0, Node* next = nullptr);
         Data getData() const;
         Node* getNext() const;
         Node& operator=(const Node& node);
@@ -78,7 +76,7 @@ namespace mtm
     }
 
     template<class Data>
-    LinkedList<Data>::LinkedList(): head(0), size(0){
+    LinkedList<Data>::LinkedList(): head(nullptr), size(0){
     }
     template<class Data>
     LinkedList<Data>::~LinkedList()
@@ -114,7 +112,7 @@ namespace mtm
     template<class Data>
     void LinkedList<Data>::insertNodeToHead(Data data)
     {
-        Node<Data> *new_Node = new Node<Data>(data, 0);
+        Node<Data> *new_Node = new Node<Data>(data, nullptr);
         if(!head) //empty Node
         {
             head = new_Node;
@@ -134,7 +132,7 @@ namespace mtm
     template<class Data>
     void LinkedList<Data>::insertNodeToButtom(Node<Data>* position, Data data)
     {
-        Node<Data> *new_Node = new Node<Data>(data, 0);
+        Node<Data> *new_Node = new Node<Data>(data, nullptr);
         position->next = new_Node;
     }
     template<class Data>
@@ -222,12 +220,12 @@ namespace mtm
         }
     }
     template <class Data>
-    ostream& operator<<(ostream& os, const LinkedList<Data>& linked)
+    std::ostream& operator<<(std::ostream& os, const LinkedList<Data>& linked)
     {
         Node<Data>* temp = linked.getFirst(); 
         for(int i = 0; i < linked.getSize(); i++)
         {
-            os << *temp->getData() << endl;
+            os << *temp->getData() << std::endl;
             temp = temp->getNext();
         }
         return os;

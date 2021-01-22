@@ -1,21 +1,8 @@
-#include "../partA/date_wrap.h"
-#include "event_container.h"
-#include "base_event.h"
 #include "festival.h"
-#include "../partA/exceptions.h"
 
-#include <stdlib.h>
-#include <string.h>
-#include <iostream>
-
-using std::cout;
-using std::cerr;
-using std::cin;
-using std::endl;
 using std::ostream;
 using std::string;
 using mtm::DateWrap;
-using mtm::LinkedList;
 using mtm::BaseEvent;
 using mtm::Festival;
 

@@ -5,17 +5,17 @@
 
 namespace mtm{
     template<class CanRegister>
-    class CustomEvent : public BaseEvent{
+    class CustomEvent : public mtm::BaseEvent{
         CanRegister condition;
     public:
-        CustomEvent(DateWrap new_date, string new_name, CanRegister cond);
+        CustomEvent(mtm::DateWrap new_date, std::string new_name, CanRegister cond);
         CustomEvent(const CustomEvent& custom_event);
-        ~CustomEvent() {}
-        void registerParticipant(int student);
-        BaseEvent* clone() const;
+        ~CustomEvent() = default;
+        void registerParticipant(int student)override;
+        mtm::BaseEvent* clone() const;
     };
     template<class CanRegister>
-    CustomEvent<CanRegister>::CustomEvent(DateWrap new_date, string new_name, CanRegister cond):
+    CustomEvent<CanRegister>::CustomEvent(mtm::DateWrap new_date, std::string new_name, CanRegister cond):
         BaseEvent(new_date,new_name){
         condition = CanRegister(cond);
     }
@@ -48,7 +48,7 @@ namespace mtm{
         }
     }
     template<class CanRegister>
-    BaseEvent* CustomEvent<CanRegister>::clone() const
+    mtm::BaseEvent* CustomEvent<CanRegister>::clone() const
     {
         BaseEvent* new_event = new CustomEvent(*this);
         Node<int*>* iterator = this->members_list.getFirst();

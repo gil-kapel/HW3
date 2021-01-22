@@ -4,15 +4,15 @@
 #include "base_event.h"
 
 namespace mtm{
-    class ClosedEvent : public BaseEvent{
-        LinkedList<int*> invetee_list;
+    class ClosedEvent : public mtm::BaseEvent{
+        mtm::LinkedList<int*> invetee_list;
     public:
-        ClosedEvent(DateWrap new_date, string new_name);
-        ~ClosedEvent();
-        ClosedEvent(const ClosedEvent& closed_event);
+        ClosedEvent(mtm::DateWrap new_date, std::string new_name);
+        ~ClosedEvent() = default;
+        ClosedEvent(const mtm::ClosedEvent& closed_event);
         void addInvitee(int student);
-        void registerParticipant(int student);
-        BaseEvent* clone() const;
+        void registerParticipant(int student) override;
+        mtm::BaseEvent* clone() const;
     };
 } //* End of mtm namespace*/
 

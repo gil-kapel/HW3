@@ -4,11 +4,11 @@
 #include "base_event.h"
 
 namespace mtm{
-    class OpenEvent : public BaseEvent{
+    class OpenEvent : public mtm::BaseEvent{
     public:
-        OpenEvent(DateWrap new_date, string new_name);
+        OpenEvent(mtm::DateWrap new_date, std::string new_name);
         ~OpenEvent() = default;
-        BaseEvent* clone() const;
+        mtm::BaseEvent* clone() const; 
     };
 } //* End of mtm namespace*/
 

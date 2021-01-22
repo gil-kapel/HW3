@@ -1,12 +1,6 @@
 #include "closed_event.h"
 
-using std::cout;
-using std::cerr;
-using std::cin;
-using std::endl;
-using std::ostream;
 using std::string;
-using mtm::Exception;
 using mtm::DateWrap;
 using mtm::LinkedList;
 using mtm::BaseEvent;
@@ -27,8 +21,6 @@ ClosedEvent::ClosedEvent(const ClosedEvent& closed_event):
             invetee_list.insert(student_ptr);
         }
     }
-
-ClosedEvent::~ClosedEvent(){}
 
 void ClosedEvent::addInvitee(int student)
 {

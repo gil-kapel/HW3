@@ -1,13 +1,9 @@
 #include "date_wrap.h"
 #include "exceptions.h"
 #include <iostream>
-#include <stdbool.h>
+#include <cstdbool>
 
 using mtm::DateWrap;
-using std::cout;
-using std::cerr;
-using std::cin;
-using std::endl;
 using std::ostream;
 
 const int min_day = 1, max_day = 30, min_month = 1, max_month = 12;
