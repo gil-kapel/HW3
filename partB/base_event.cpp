@@ -9,13 +9,12 @@ using mtm::LinkedList;
 using mtm::BaseEvent;
 
 BaseEvent::BaseEvent(DateWrap new_date, string new_name):
-    date(new_date), name(new_name){
-    members_list = LinkedList<int*>();
+    date(new_date), name(new_name), members_list(LinkedList<int*>()){
 }
 
 BaseEvent::BaseEvent(const BaseEvent& base_event):
-    date(DateWrap(base_event.date)), name(string(base_event.name)){
-    Node<int*>* iterator = this->members_list.getFirst();
+    date(DateWrap(base_event.date)), name(string(base_event.name)), members_list(LinkedList<int*>()){
+    Node<int*>* iterator = base_event.members_list.getFirst();
     for (; iterator ; iterator = iterator->getNext())
     {
         int* student = new int(*iterator->getData());

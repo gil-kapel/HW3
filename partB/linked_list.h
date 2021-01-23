@@ -27,8 +27,6 @@ namespace mtm
     public:
         LinkedList();
         ~LinkedList();
-        LinkedList(const LinkedList& linked);
-        LinkedList<Data>& operator=(const LinkedList<Data>& linked);
         void insertNodeToHead(Data data);
         void insertNodeToCurrentPosition(Node<Data>* position, Data data);
         void insertNodeToButtom(Node<Data>* position, Data data);
@@ -87,29 +85,6 @@ namespace mtm
         }
     }
     template<class Data>
-    LinkedList<Data>::LinkedList(const LinkedList& linked):
-        head(linked.head), size(linked.size){
-    }
-    template<class Data>
-    LinkedList<Data>& LinkedList<Data>::operator=(const LinkedList<Data>& linked)
-    {
-        if(this == &linked)
-        {
-            return *this;
-        }
-        for(int i = 0 ; i < size ; i++)
-        {
-            removeHead();
-        }
-        Node<Data> *temp = linked.head;
-        for(int i = 0 ; i < linked.size ; i++)
-        {
-            this->insert(temp->data);
-            temp = temp->next;
-        }
-        return *this;
-    }
-    template<class Data>
     void LinkedList<Data>::insertNodeToHead(Data data)
     {
         Node<Data> *new_Node = new Node<Data>(data, nullptr);
@@ -161,6 +136,10 @@ namespace mtm
     template<class Data>
     bool LinkedList<Data>::contains(Data data)
     {
+        if(head == nullptr)
+        {
+            return false;
+        }
         Node<Data> *temp = head;
         for(int i = 0; i < size; i++) {
             if(*data == *temp->data)

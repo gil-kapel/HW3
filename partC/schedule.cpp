@@ -1,6 +1,4 @@
 #include "schedule.h"
-#include <iostream>
-#include <string>
 
 using std::cout;
 using std::endl;
@@ -10,96 +8,113 @@ using mtm::DateWrap;
 using mtm::BaseEvent;
 using mtm::EventContainer;
 using mtm::Schedule;
+using std::list;
 
-Schedule::Schedule(){}
+//* compare events for sorting them in the event manager 
+//  use the opertor< from BaseEvent class to determine if event1 is earlier then event2
+// if both off the events are in the same date, the comparation will be lixographic 
+static bool compare_events(BaseEvent* event1, BaseEvent* event2)
+{
+    return *event1 < *event2;
+}
 
-Schedule::~Schedule(){}
+Schedule::Schedule(): event_manager(){
+}
+
+Schedule::~Schedule()
+{
+    for(BaseEvent* event : event_manager)
+    {
+        delete event; //need to delete the clone events
+    }
+}
 
 void Schedule::addEvents(const EventContainer& event_container)
 {
-    EventContainer::EventIterator iterator = event_manager->begin();
-    while(iterator.iterator)
+    EventContainer::EventIterator iter(event_container.events_list.getFirst());
+    while(iter.iterator) // first loop to check if there are events that already exist in our event manager
     {
-        if(event_manager->events_list.contains(iterator.iterator->getData()))
+        BaseEvent& current_event = *iter;
+        for(BaseEvent* event :event_manager)
         {
-            throw mtm::EventAlreadyExists();
+            if((event->getEventDate() == current_event.getEventDate()) &&
+               (event->getEventName() == current_event.getEventName()))
+            {
+                throw mtm::EventAlreadyExists();
+                return; // even if one event from the event container exist in our manager, non will be copied
+            }
         }
-         ++iterator.iterator;
+        ++iter;
     }
-    iterator = event_manager->begin();
-    while(iterator.iterator)
+    EventContainer::EventIterator iter2(event_container.events_list.getFirst());
+    while(iter2.iterator) // second loop will copy the events to the event manager if they're not in it
     {
-        event_manager->add(iterator.iterator->getData());
-        ++iterator;
+        BaseEvent* cloned_event = (*iter2).clone();
+        event_manager.push_back(cloned_event);
+        ++iter2;
     }
+    event_manager.sort(compare_events);   
 }
 
 void Schedule::registerToEvent(DateWrap event_date, string event_name, int student)
 {
-    EventContainer::EventIterator iterator = event_manager->begin();
-    while(iterator.iterator)
+    for(BaseEvent* event : event_manager)
     {
-        if(iterator.iterator->getData()->getEventDate() == event_date &&
-            iterator.iterator->getData()->getEventName() == event_name)
+        if(event->getEventDate() == event_date && event->getEventName() == event_name)
         {
-            iterator.iterator->getData()->registerParticipant(student);
+            event->registerParticipant(student);
             return;
         }
-        ++iterator;
     }
     throw mtm::EventDoesNotExist();
 }
 
 void Schedule::unregisterFromEvent(DateWrap event_date, string event_name, int student)
 {
-    EventContainer::EventIterator iterator = event_manager->begin();
-    while(iterator.iterator)
+    for(BaseEvent* event : event_manager)
     {
-        if(iterator.iterator->getData()->getEventDate() == event_date &&
-           iterator.iterator->getData()->getEventName() == event_name)
+        if(event->getEventDate() == event_date && event->getEventName() == event_name)
         {
-            iterator.iterator->getData()->unregisterParticipant(student);
+            event->unregisterParticipant(student);
             return;
         }
-        ++iterator;
     }
     throw mtm::EventDoesNotExist();
 }
 
-void Schedule::printAllEvents()
+void Schedule::printAllEvents()const
 {
-    EventContainer::EventIterator iterator = event_manager->begin();
-    while(iterator.iterator)
+    for(BaseEvent* event : event_manager)
     {
-        iterator.iterator->getData()->printShort(cout);
-        ++iterator;
+        (*event).printShort(cout);
+        cout << endl;
     }
 }
 
-void Schedule::printMonthEvents(int month, int year)
+void Schedule::printMonthEvents(int month, int year)const
 {
     DateWrap first_day(1,month,year);
     DateWrap last_day(30,month,year);
-    EventContainer::EventIterator iterator = event_manager->begin();
-    while(iterator.iterator->getData()->getEventDate() >= first_day && iterator.iterator->getData()->getEventDate() <= last_day)
+    for(BaseEvent* event : event_manager)
     {
-        iterator.iterator->getData()->printShort(cout);
-        ++iterator;
+        if((event->getEventDate() >= first_day) && (event->getEventDate() <= last_day))
+        {
+            (*event).printShort(cout);
+            cout << endl;
+        }
     }
 } 
 
-void Schedule::printEventDetails(string event_name, DateWrap event_date)
+void Schedule::printEventDetails(DateWrap event_date, string event_name)const
 {
-    EventContainer::EventIterator iterator = event_manager->begin();
-    while(iterator.iterator)
+    for(BaseEvent* event : event_manager)
     {
-        if(iterator.iterator->getData()->getEventDate() == event_date &&
-           iterator.iterator->getData()->getEventName() == event_name)
+        if(event->getEventDate() == event_date && event->getEventName() == event_name)
         {
-            iterator.iterator->getData()->printLong(cout);
+            (*event).printLong(cout);
+            cout << endl;
             return;
         }
-        ++iterator;
     }
     throw mtm::EventDoesNotExist();
 }

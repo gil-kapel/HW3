@@ -12,29 +12,6 @@ using mtm::Node;
 using mtm::BaseEvent;
 using mtm::EventContainer;
 
-EventContainer::EventContainer(const EventContainer& ec)
-{
-    for (Node<BaseEvent*>* iterator = ec.events_list.getFirst(); iterator == 0 ; iterator = iterator->getNext())
-    {
-        BaseEvent* event = iterator->getData()->clone();
-        events_list.insert(event);
-    }
-}
-
-EventContainer& EventContainer::operator=(const EventContainer& ec)
-{
-    if (this == &ec)
-    {
-        return *this;
-    }
-    for (Node<BaseEvent*>* iterator = ec.events_list.getFirst(); iterator == 0 ; iterator = iterator->getNext())
-    {
-        BaseEvent* event = iterator->getData()->clone();
-        events_list.insert(event);
-    }
-    return *this;
-}
-
 EventContainer::EventIterator::EventIterator(Node<BaseEvent*>* event):
     iterator(event){
 }
@@ -69,6 +46,34 @@ bool EventContainer::EventIterator::operator==(const EventContainer::EventIterat
 
 bool EventContainer::EventIterator::operator!=(const EventContainer::EventIterator& iter){
     return(!(iterator == iter.iterator));
+}
+
+
+EventContainer::EventContainer():
+    events_list(LinkedList<BaseEvent*>()){
+}
+
+EventContainer::EventContainer(const EventContainer& ec)
+{
+    for (Node<BaseEvent*>* iterator = ec.events_list.getFirst(); iterator == 0 ; iterator = iterator->getNext())
+    {
+        BaseEvent* event = iterator->getData()->clone();
+        events_list.insert(event);
+    }
+}
+
+EventContainer& EventContainer::operator=(const EventContainer& ec)
+{
+    if (this == &ec)
+    {
+        return *this;
+    }
+    for (Node<BaseEvent*>* iterator = ec.events_list.getFirst(); iterator == 0 ; iterator = iterator->getNext())
+    {
+        BaseEvent* event = iterator->getData()->clone();
+        events_list.insert(event);
+    }
+    return *this;
 }
 
 void EventContainer::add(const BaseEvent& event)

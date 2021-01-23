@@ -61,12 +61,5 @@ void ClosedEvent::registerParticipant(int student)
 }
 
 BaseEvent* ClosedEvent::clone() const{
-    BaseEvent* new_event = new ClosedEvent(*this);
-    Node<int*>* iterator = this->members_list.getFirst();
-    for (; iterator ; iterator = iterator->getNext())
-    {
-        new_event->insertStudentToList(*iterator->getData());
-    }
-
-    return new_event;
+    return new ClosedEvent(*this);
 }

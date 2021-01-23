@@ -21,7 +21,7 @@ namespace mtm{
             bool operator!=(const EventIterator& iter);
             friend class Schedule;
         };
-        EventContainer()= default;
+        EventContainer();
         EventContainer(const EventContainer& ec);
         EventContainer& operator=(const EventContainer& ec);
         virtual ~EventContainer() = default;

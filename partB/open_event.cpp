@@ -9,12 +9,10 @@ OpenEvent::OpenEvent(DateWrap new_date, string new_name):
     BaseEvent(new_date,new_name){
 }
 
-BaseEvent* OpenEvent::clone() const{
-    BaseEvent* new_event = new OpenEvent(*this);
-    Node<int*>* iterator = this->members_list.getFirst();
-    for (; iterator ; iterator = iterator->getNext())
-    {
-        new_event->insertStudentToList(*iterator->getData());
+OpenEvent::OpenEvent(const OpenEvent& event):
+    BaseEvent(event){
     }
-    return new_event;
+
+BaseEvent* OpenEvent::clone() const{
+    return new OpenEvent(*this);
 }

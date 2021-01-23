@@ -11,47 +11,46 @@
 #include "../partB/event_container.h"
 #include <string>
 #include <iostream>
-using std::string;
-using std::endl;
-using mtm::EventContainer;
+#include <list> 
+
 
 namespace mtm{
     class Schedule{
-        EventContainer *event_manager;
+        std::list<BaseEvent*> event_manager;
     public:
         Schedule();
         ~Schedule();
-        void addEvents(const EventContainer& event_container);
-        void registerToEvent(DateWrap event_date, string event_name, int student);
-        void unregisterFromEvent(DateWrap event_date, string event_name, int student);
-        void printAllEvents();
-        void printMonthEvents(int month, int year);
+        void addEvents(const mtm::EventContainer& event_container);
+        void registerToEvent(mtm::DateWrap event_date, std::string event_name, int student);
+        void unregisterFromEvent(mtm::DateWrap event_date, std::string event_name, int student);
+        void printAllEvents()const;
+        void printMonthEvents(int month = 1, int year = 2020)const;
         template <class predicate>
-        void printSomeEvents(predicate predicate_function, bool verbose = false);
-        void printEventDetails(string event_name, DateWrap event_date);
+        void printSomeEvents(predicate predicate_function, bool verbose = false)const;
+        void printEventDetails(mtm::DateWrap event_date, std::string event_name)const;
     };
 
     template <class predicate>
-    void Schedule::printSomeEvents(predicate predicate_function, bool verbose)
+    void Schedule::printSomeEvents(predicate predicate_function, bool verbose)const
     {
-        EventContainer::EventIterator iterator = event_manager->begin();
-        while(iterator.iterator)
+        for(BaseEvent* event : event_manager)
         {
-            if(predicate_function(iterator.iterator->getData()->getEventDate()))
+            if(predicate_function(*event))
             {
                 if(verbose)
                 {
-                    iterator.iterator->getData()->printLong(cout);
-                    return;
+                    (*event).printLong(std::cout);
+                    std::cout << std::endl;
                 }
                 else
                 {
-                    iterator.iterator->getData()->printShort(cout);
-                    return;
+                    (*event).printShort(std::cout);
+                    std::cout << std::endl;
                 }
             }
-            ++iterator;
         }
     }
-}
+
+
+} //* End of namespace mtm */
 #endif // SCHEDULE_H_
